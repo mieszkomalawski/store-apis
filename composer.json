@@ -26,6 +26,7 @@
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
         "moneyphp/money": "^3.0",
+        "myclabs/deep-copy": "^1.7",
         "ramsey/uuid": "^3.7",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
