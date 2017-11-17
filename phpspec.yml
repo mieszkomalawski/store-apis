@@ -1,0 +1,6 @@
+suites:
+  store_suite:
+    spec_path: src/DomainModel
+    src_path: src/DomainModel
+    psr4_prefix: Store
+    namespace: Store
