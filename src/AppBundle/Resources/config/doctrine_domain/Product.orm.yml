@@ -1,0 +1,15 @@
+Store\Catalog\Product:
+  type: entity
+  table: products
+  id:
+    id:
+      type: string
+      generator: {strategy: NONE}
+  embedded:
+    price:
+      class: Money\Money
+      columnPrefix: false
+  fields:
+    name:
+      type: string
+      length: 255
