@@ -44,6 +44,22 @@ class Product
     }
 
     /**
+     * @param Money $price
+     */
+    public function changePrice(Money $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function changeName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return UuidInterface
      */
     public function getId(): UuidInterface

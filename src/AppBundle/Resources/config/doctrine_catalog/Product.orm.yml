@@ -1,9 +1,10 @@
 Store\Catalog\Product:
   type: entity
   table: products
+  repositoryClass: AppBundle\Repository\ProductRepository
   id:
     id:
-      type: string
+      type: uuid
       generator: {strategy: NONE}
   embedded:
     price:

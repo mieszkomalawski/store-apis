@@ -21,7 +21,6 @@ several bussiness rules.
 - cart limit
 - cart total price
 
-
 ### Nice to have
 
 - Security: JWT

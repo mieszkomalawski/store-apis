@@ -19,6 +19,20 @@ class Cart
     private $products = [];
 
     /**
+     * @var UuidInterface
+     */
+    private $id;
+
+    /**
+     * Cart constructor.
+     * @param UuidInterface $id
+     */
+    public function __construct(UuidInterface $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @param Product $product
      * @param int $quantity
      */

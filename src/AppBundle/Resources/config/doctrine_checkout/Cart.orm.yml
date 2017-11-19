@@ -1,0 +1,11 @@
+Store\Checkout\Cart:
+  type: entity
+  table: carts
+  id:
+    id:
+      type: uuid
+      generator: {strategy: NONE}
+  oneToMany:
+    products:
+      targetEntity: CartItem
+      mappedBy: cart

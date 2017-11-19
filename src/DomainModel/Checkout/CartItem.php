@@ -11,6 +11,16 @@ use Store\Catalog\Product;
 class CartItem
 {
     /**
+     * @var UuidInterface
+     */
+    private $id;
+
+    /**
+     * @var Cart
+     */
+    private $cart;
+
+    /**
      * @var Product
      */
     private $product;
@@ -25,13 +35,23 @@ class CartItem
      * @param Product $product
      * @param int $quantity
      */
-    public function __construct(Product $product, int $quantity)
+    public function __construct(UuidInterface $id, Cart $cart, Product $product, int $quantity)
     {
+        $this->id = $id;
+        $this->cart = $cart;
         if($quantity < 1){
             throw new \InvalidArgumentException('Cannot have negative amount of item');
         }
         $this->product = $product;
         $this->quantity = $quantity;
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     /**

@@ -1,4 +1,8 @@
 catalog:
     type: rest
     prefix: /api/catalog
-    resource: AppBundle\Controller\ProductController
+    resource: AppBundle\Controller\Catalog\ProductController
+
+#NelmioApiDocBundle:
+#    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+#    prefix:   /api/doc

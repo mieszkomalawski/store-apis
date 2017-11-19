@@ -27,15 +27,15 @@ class LoadProductData implements FixtureInterface, ContainerAwareInterface, Orde
 
     public function load(ObjectManager $manager)
     {
-        $fallout = new Product(Uuid::uuid4(), 'Fallout', Money::USD(1,99));
+        $fallout = new Product(Uuid::uuid4(), 'Fallout', Money::USD(199));
         $manager->persist($fallout);
-        $dontStarve = new Product(Uuid::uuid4(), 'Don’t Starve', Money::USD(2,99));
+        $dontStarve = new Product(Uuid::uuid4(), 'Don’t Starve', Money::USD(299));
         $manager->persist($dontStarve);
-        $baldur = new Product(Uuid::uuid4(), 'Baldur’s Gate', Money::USD(3,99));
+        $baldur = new Product(Uuid::uuid4(), 'Baldur’s Gate', Money::USD(399));
         $manager->persist($baldur);
-        $icewind = new Product(Uuid::uuid4(), 'Icewind Dale', Money::USD(4,99));
+        $icewind = new Product(Uuid::uuid4(), 'Icewind Dale', Money::USD(499));
         $manager->persist($icewind);
-        $blood = new Product(Uuid::uuid4(), 'Bloodborne', Money::USD(5,99));
+        $blood = new Product(Uuid::uuid4(), 'Bloodborne', Money::USD(599));
         $manager->persist($blood);
 
         $manager->flush();

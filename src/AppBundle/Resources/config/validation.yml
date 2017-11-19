@@ -1,0 +1,23 @@
+AppBundle\Command\UpdateProductCommand:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          min: 2
+          max: 255
+    price:
+      - NotBlank: ~
+      - Range:
+         min: 0
+
+AppBundle\Command\CreateProductCommand:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          min: 2
+          max: 255
+    price:
+      - NotBlank: ~
+      - Range:
+          min: 0

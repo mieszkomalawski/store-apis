@@ -55,6 +55,8 @@ doctrine:
         #   3. Uncomment next line:
         #path: '%database_path%'
         path: '%database_path%'
+        types:
+          uuid: Ramsey\Uuid\Doctrine\UuidType
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
@@ -68,6 +70,11 @@ doctrine:
                 type: yml
                 dir:  %kernel.root_dir%/../src/AppBundle/Resources/config/doctrine_catalog
                 prefix: Store\Catalog
+              Checkout:
+                is_bundle: false
+                type: yml
+                dir: %kernel.root_dir%/../src/AppBundle/Resources/config/doctrine_checkout
+                prefix: Store\Checkout
               Money:
                 is_bundle: false
                 type: yml
@@ -88,7 +95,7 @@ fos_rest:
         enabled: true
         decoders:
             json: fos_rest.decoder.json
-    disable_csrf_role: ROLE_USER
+    disable_csrf_role: ROLE_ANONYMOUS
     format_listener:
         enabled: true
     serializer:
@@ -105,3 +112,10 @@ fos_rest:
        failed_validation: HTTP_BAD_REQUEST
     routing_loader:
        default_format: json
+    exception:
+      enabled: true
+      codes:
+        Symfony\Component\Routing\Exception\ResourceNotFoundException: 404
+      messages:
+        Symfony\Component\Routing\Exception\ResourceNotFoundException: false
+#nelmio_api_doc: ~

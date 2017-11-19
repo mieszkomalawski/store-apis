@@ -29,6 +29,14 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AppBundle\Serializer\ProductHandler:
+        tags:
+            - { name: jms_serializer.subscribing_handler }
+
+    AppBundle\Serializer\PaginationHandler:
+        tags:
+            - { name: jms_serializer.subscribing_handler }
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
