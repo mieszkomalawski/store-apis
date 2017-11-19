@@ -33,6 +33,10 @@ services:
         tags:
             - { name: jms_serializer.subscribing_handler }
 
+    AppBundle\Serializer\CartItemHandler:
+        tags:
+            - { name: jms_serializer.subscribing_handler }
+
     AppBundle\Serializer\PaginationHandler:
         tags:
             - { name: jms_serializer.subscribing_handler }

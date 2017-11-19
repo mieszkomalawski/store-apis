@@ -11,10 +11,9 @@ use JMS\Serializer\JsonSerializationVisitor;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\Paginator;
 use Store\Catalog\Product;
-use Store\Checkout\CartItem;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-class CartItemHandler implements SubscribingHandlerInterface
+class PaginationHandler implements SubscribingHandlerInterface
 {
     public static function getSubscribingMethods()
     {
@@ -22,27 +21,24 @@ class CartItemHandler implements SubscribingHandlerInterface
             array(
                 'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
                 'format' => 'json',
-                'type' => CartItem::class,
-                'method' => 'serializeCartItem',
+                'type' => Paginator::class,
+                'method' => 'serializePaginator',
             )
         );
     }
 
+
     /**
      * @param JsonSerializationVisitor $visitor
-     * @param Product $cartItem
+     * @param Product $product
      * @param array $type
      * @param Context $context
      * @return array
      */
-    public function serializeCartItem(JsonSerializationVisitor $visitor, CartItem $cartItem, array $type, Context $context)
+    public function serializePaginator(JsonSerializationVisitor $visitor, PaginationInterface $paginator, array $type, Context $context)
     {
         return [
-            'id' => $cartItem->getProductId()->toString(),
-            'name' => $cartItem->getName(),
-            'quantity' => $cartItem->getQuantity(),
-            // amount is in lowest units always
-            'price' => $cartItem->getPrice()->getAmount() / 100
+            'items' => $paginator->getItems()
         ];
     }
 

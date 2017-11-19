@@ -1,6 +1,9 @@
 - Normalize exception handler: https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1717
 - Custom 500 exceptions
+- CS fixeer
 - Application layer in domain
 - simplify validation
 - product repository DI
 - stronicowanie w headerach a nie body
+- pozbyć sie persistent collection z cart
+- pozbyc się dzielenia i mnożenia przez 100

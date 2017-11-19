@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Store\Checkout;
 
-use DeepCopy\DeepCopy;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -14,7 +15,7 @@ class Cart
 {
     const ITEM_LIMIT = 3;
     /**
-     * @var array
+     * @var ArrayCollection
      */
     private $products = [];
 
@@ -30,6 +31,15 @@ class Cart
     public function __construct(UuidInterface $id)
     {
         $this->id = $id;
+        $this->products = new ArrayCollection();
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     /**
@@ -40,9 +50,9 @@ class Cart
     {
         $id = $product->getId();
         $hasThisProduct = $this->findItemById($id);
-        if (count($hasThisProduct) > 0
+        if (!$hasThisProduct->isEmpty()
         ) {
-            $this->increaseQuantity(current($hasThisProduct));
+            $this->increaseQuantity($hasThisProduct->first());
         } else {
             if (count($this->products) >= self::ITEM_LIMIT) {
                 throw new \InvalidArgumentException('Cannot have more than 3 products in cart');
@@ -53,18 +63,24 @@ class Cart
 
     public function getProducts(): iterable
     {
-        $deepCopy = new DeepCopy();
-        return $deepCopy->copy($this->products);
+        /**
+         * We are cloning object to avoid situation where
+         * someone modifies CartItems bypassing Cart itself (aggregate invariants)
+         * shallow copy is enough as we do not have to worry about related entities eg. Product
+         */
+        return $this->products->map(function(CartItem $cartItem){
+            return clone $cartItem;
+        });
     }
 
-    public function remove(Uuid $productId): void
+    public function remove(UuidInterface $productId): void
     {
         $hasThisProduct = $this->findItemById($productId);
-        if (count($hasThisProduct) > 0
+        if (!$hasThisProduct->isEmpty()
         ) {
             /** @var CartItem $cartItem */
-            $cartItem = current($hasThisProduct);
-            unset($this->products[(string)$cartItem->getProductId()]);
+            $cartItem = $hasThisProduct->first();
+            $this->products->removeElement($cartItem);
         } else {
             throw new \InvalidArgumentException('Cannot remove product by id ' . $productId->toString() . ', product not found');
         }
@@ -74,26 +90,23 @@ class Cart
     /**
      * @return Money
      */
-    public function total(): Money
+    public function getTotal(): Money
     {
-        return array_reduce($this->products, function ($carry, CartItem $cartItem) {
-            $price = $cartItem->getPrice() ;
-            if (null === $carry) {
-                return $price;
-            }
+        return array_reduce($this->products->toArray(), function ($carry, CartItem $cartItem) {
+            $price = $cartItem->getPrice();
             /** @var Money $carry */
             return $carry->add($price);
 
-        }, null);
+        }, Money::USD(0));
     }
 
     /**
      * @param UuidInterface $productId
-     * @return array
+     * @return ArrayCollection
      */
-    private function findItemById(UuidInterface $productId): array
+    private function findItemById(UuidInterface $productId): ArrayCollection
     {
-        return array_filter($this->products, function (CartItem $cartItem) use ($productId) {
+        return $this->products->filter(function (CartItem $cartItem) use ($productId) {
             return (string)$cartItem->getProductId() === (string)$productId;
         });
     }
@@ -101,7 +114,6 @@ class Cart
     private function increaseQuantity(CartItem $cartItem): void
     {
         $cartItem->increaseQuantity(1);
-        $this->products[(string)$cartItem->getProductId()] = $cartItem;
     }
 
     /**
@@ -110,7 +122,7 @@ class Cart
      */
     private function addProduct(Product $product, int $quantity): void
     {
-        $this->products[(string)$product->getId()] = new CartItem($product, $quantity);
+        $this->products->add(new CartItem(Uuid::uuid4(), $this, $product, $quantity));
     }
 
 }

@@ -70,6 +70,11 @@ class CartItem
         return $this->product->getPrice()->multiply($this->quantity);
     }
 
+    public function getName(): string
+    {
+        return $this->product->getName();
+    }
+
     /**
      * @return int
      */
