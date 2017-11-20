@@ -4,9 +4,13 @@
 namespace AppBundle\Controller\Checkout;
 
 use AppBundle\Form\AddProductToCartType;
+use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\FOSRestController;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Store\Catalog\Product;
 use Store\Checkout\Cart;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -51,6 +55,7 @@ class CartController extends FOSRestController
     }
 
     /**
+     * @Get("/carts/{cart}", name="get_cart", options={ "method_prefix" = false }, requirements={"cart" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      *  @SWG\Get(
      *     path="/checkout/carts/{cartId}",
@@ -138,6 +143,7 @@ class CartController extends FOSRestController
     }
 
     /**
+     * @Post("/carts/{cart}/products", name="post_cart_product", options={ "method_prefix" = false }, requirements={"cart" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @SWG\Post(
      *     path="/checkout/carts/{cartId}/products",
@@ -217,6 +223,7 @@ class CartController extends FOSRestController
     }
 
     /**
+     * @Delete("/carts/{cart}/products/{product}", name="delete_cart_product", options={ "method_prefix" = false }, requirements={"cart" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", "product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @SWG\Delete(
      *     path="/checkout/carts/{cartId}/products/{productId}",
