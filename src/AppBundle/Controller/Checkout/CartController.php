@@ -89,7 +89,7 @@ class CartController extends FOSRestController
      *                  property="total",
      *                  type="number",
      *                  example="9.99",
-     *                  minimum=0.01
+     *                  minimum=0
      *              )
      * )
      *

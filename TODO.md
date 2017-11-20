@@ -8,3 +8,6 @@
 - pozbyć sie persistent collection z cart
 - pozbyc się dzielenia i mnożenia przez 100
 - uniemożliwić pusty name/price przy update productu
+- upewnieć się co do stabilności testów po wyczyszceniu bazy
+- upiekszyć swaggera
+- czyścić dane po testach dredd

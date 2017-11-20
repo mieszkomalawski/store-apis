@@ -2,7 +2,15 @@
 
 Framework: Symfony (lighter framework could be used) + FOSRestBundle
 Unit tests: PHPSpec
-Functional testing: dredd tests generate from swagger dodumentation and DSL tests using codeception
+run unit tests:
+
+```vendor/bin/phpspec run```
+
+Functional testing: dredd tests generated from swagger documentation
+run dredd tests:
+
+```dredd --language=vendor/bin/dredd-hooks-php --hookfiles=./hooks*.php```
+
 Documentation: Swagger 
 
 ### Architecture
@@ -12,14 +20,14 @@ several bussiness rules.
 
 ### Must have
 
-- products CRUD
-- validation
-- product pagination
-- default products
-- cart create
-- cart product crud
-- cart limit
-- cart total price
+- [x] products CRUD
+- [x] validation
+- [x] product pagination
+- [x] default products
+- [x] cart create
+- [x] cart product crud
+- [x] cart limit
+- [x] cart total price
 
 ### Nice to have
 

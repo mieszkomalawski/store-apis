@@ -5,6 +5,7 @@ namespace spec\Store\Checkout;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Store\Catalog\Product;
+use Store\Checkout\Cart;
 use Store\Checkout\CartItem;
 use PhpSpec\ObjectBehavior;
 
@@ -15,9 +16,10 @@ class CartItemSpec extends ObjectBehavior
         $product = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(100)
+            Money::USD(100)
         );
-        $this->beConstructedWith($product, 1);
+        $cart = new Cart(Uuid::uuid4());
+        $this->beConstructedWith(Uuid::uuid4(), $cart, $product, 1);
         $this->shouldHaveType(CartItem::class);
     }
 
@@ -26,9 +28,12 @@ class CartItemSpec extends ObjectBehavior
         $product = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(100)
+            Money::USD(100)
         );
+        $cart = new Cart(Uuid::uuid4());
         $this->shouldThrow(new \InvalidArgumentException('Cannot have negative amount of item'))->during('__construct', [
+            Uuid::uuid4(),
+            $cart,
             $product,
             -1
         ]);

@@ -2,6 +2,7 @@
 
 namespace spec\Store\Checkout;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Store\Catalog\Product;
@@ -11,6 +12,10 @@ use Store\Checkout\CartItem;
 
 class CartSpec extends ObjectBehavior
 {
+    public function let()
+    {
+        $this->beConstructedWith(Uuid::uuid4());
+    }
     function it_is_initializable()
     {
         $this->shouldHaveType(Cart::class);
@@ -21,7 +26,7 @@ class CartSpec extends ObjectBehavior
         $product = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(100)
+            Money::USD(100)
         );
         $this->add($product, 1);
     }
@@ -31,14 +36,14 @@ class CartSpec extends ObjectBehavior
         $product = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(100)
+            Money::USD(100)
         );
         $this->add($product, 1);
         $this->add($product, 1);
 
-        $this->getProducts()->shouldBeLike([
-            (string)$product->getId() => new CartItem($product, 2)
-        ]);
+        $products = $this->getProducts();
+        $products->count()->shouldBeLike(1);
+        $products->first()->getName()->shouldBeLike('testProduct');
     }
 
     public function it_should_remove_product()
@@ -46,12 +51,12 @@ class CartSpec extends ObjectBehavior
         $product = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(100)
+            Money::USD(100)
         );
         $this->add($product, 1);
         $this->remove($product->getId());
 
-        $this->getProducts()->shouldBeLike([]);
+        $this->getProducts()->shouldBeLike(new ArrayCollection());
     }
 
     public function it_should_throw_exception_when_product_not_found()
@@ -59,7 +64,7 @@ class CartSpec extends ObjectBehavior
         $product = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(100)
+            Money::USD(100)
         );
         $this->add($product, 1);
         $uuid = Uuid::uuid4();
@@ -73,26 +78,26 @@ class CartSpec extends ObjectBehavior
         $product1 = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(100)
+            Money::USD(100)
         );
         $this->add($product1, 1);
         $product2 = new Product(
             Uuid::uuid4(),
             'testProduct2',
-            Money::PLN(200)
+            Money::USD(200)
         );
         $this->add($product2, 1);
         $product3 = new Product(
             Uuid::uuid4(),
             'testProduct3',
-            Money::PLN(100)
+            Money::USD(100)
         );
         $this->add($product3, 1);
 
         $product4 = new Product(
             Uuid::uuid4(),
             'testProduct4',
-            Money::PLN(300)
+            Money::USD(300)
         );
 
         $this->shouldThrow(new \InvalidArgumentException('Cannot have more than 3 products in cart'))
@@ -104,16 +109,16 @@ class CartSpec extends ObjectBehavior
         $product1 = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(99,99)
+            Money::USD(99,99)
         );
         $this->add($product1, 1);
         $product2 = new Product(
             Uuid::uuid4(),
             'testProduct2',
-            Money::PLN(220)
+            Money::USD(220)
         );
         $this->add($product2, 2);
 
-        $this->total()->shouldBeLike(Money::PLN(440 + 99,99));
+        $this->getTotal()->shouldBeLike(Money::USD(440 + 99,99));
     }
 }

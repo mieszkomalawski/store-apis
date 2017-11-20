@@ -14,7 +14,7 @@ class ProductSpec extends ObjectBehavior
         $this->beConstructedWith(
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(100)
+            Money::USD(100)
         );
         $this->shouldHaveType(Product::class);
     }
@@ -24,7 +24,7 @@ class ProductSpec extends ObjectBehavior
         $this->shouldThrow(new \InvalidArgumentException('Product price cannot be negative'))->during('__construct', [
             Uuid::uuid4(),
             'testProduct',
-            Money::PLN(-100)
+            Money::USD(-100)
         ]);
     }
 
@@ -33,7 +33,7 @@ class ProductSpec extends ObjectBehavior
         $this->shouldThrow(new \InvalidArgumentException('Name cannot be blank'))->during('__construct', [
             Uuid::uuid4(),
             '',
-            Money::PLN(100)
+            Money::USD(100)
         ]);
     }
 }
