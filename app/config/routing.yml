@@ -7,7 +7,3 @@ checkout:
     type: rest
     prefix: /api/checkout
     resource: AppBundle\Controller\Checkout\CartController
-
-#NelmioApiDocBundle:
-#    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-#    prefix:   /api/doc

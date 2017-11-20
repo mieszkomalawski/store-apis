@@ -8,8 +8,6 @@ use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
-use Knp\Component\Pager\Pagination\PaginationInterface;
-use Knp\Component\Pager\Paginator;
 use Store\Catalog\Product;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 

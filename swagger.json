@@ -1,0 +1,96 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "some api",
+        "version": "0.1"
+    },
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/catalog/products": {
+            "get": {
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "text/xml",
+                    "text/html"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns list of products",
+                        "schema": {
+                            "properties": {
+                                "next": {
+                                    "description": "reference to next page of results",
+                                    "type": "string"
+                                },
+                                "prev": {
+                                    "description": "reference to previous page of results",
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "description": "products list",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/ProductListItem"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/catalog/products/{productId}": {
+            "get": {
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "text/xml",
+                    "text/html"
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "66e3a13c-d1a7-4bc0-9732-b99c184602e7"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns product",
+                        "schema": {
+                            "$ref": "#/definitions/ProductListItem"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ProductListItem": {
+            "required": ["id", "name", "price"],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "66e3a13c-d1a7-4bc0-9732-b99c184602e7"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "foo"
+                },
+                "price": {
+                    "type": "number",
+                    "example": "9.99"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

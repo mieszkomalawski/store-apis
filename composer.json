@@ -30,7 +30,7 @@
         "jms/serializer-bundle": "^2.2",
         "moneyphp/money": "^3.0",
         "myclabs/deep-copy": "^1.7",
-        "nelmio/api-doc-bundle": "^2.13",
+        "nelmio/api-doc-bundle": "dev-master",
         "nelmio/cors-bundle": "^1.5",
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",
@@ -43,10 +43,12 @@
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
+        "ddelnano/dredd-hooks-php": "^1.1",
         "doctrine/doctrine-fixtures-bundle": "^2.4",
         "phpspec/phpspec": "^4.2",
         "sensio/generator-bundle": "^3.1",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "timeinc/swagger-bundle": "^0.2.2"
     },
     "scripts": {
         "symfony-scripts": [
