@@ -206,8 +206,11 @@ class ProductController extends FOSRestController
             $this->getDoctrine()->getManager()->persist($product);
             $this->getDoctrine()->getManager()->flush();
 
-            return new JsonResponse([], 201,
-                ['Location' => $this->generateUrl('get_product', ['product' => $product->getId()])]);
+            return new JsonResponse(
+                [],
+                201,
+                ['Location' => $this->generateUrl('get_product', ['product' => $product->getId()])]
+            );
         }
 
         $view = $this->view($form);
@@ -287,8 +290,11 @@ class ProductController extends FOSRestController
             $this->getDoctrine()->getManager()->persist($product);
             $this->getDoctrine()->getManager()->flush();
 
-            return new JsonResponse([], 200,
-                ['Location' => $this->generateUrl('get_product', ['product' => $product->getId()])]);
+            return new JsonResponse(
+                [],
+                200,
+                ['Location' => $this->generateUrl('get_product', ['product' => $product->getId()])]
+            );
         }
 
         $view = $this->view($form);

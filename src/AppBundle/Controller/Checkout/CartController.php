@@ -43,9 +43,11 @@ class CartController extends FOSRestController
         $this->getDoctrine()->getManager()->persist($cart);
         $this->getDoctrine()->getManager()->flush();
 
-        return new JsonResponse([], 201,
-                ['Location' => $this->generateUrl('get_cart', ['cart' => $id])]);
-
+        return new JsonResponse(
+            [],
+            201,
+                ['Location' => $this->generateUrl('get_cart', ['cart' => $id])]
+        );
     }
 
     /**
@@ -202,8 +204,11 @@ class CartController extends FOSRestController
             $this->getDoctrine()->getManager()->persist($cart);
             $this->getDoctrine()->getManager()->flush();
 
-            return new JsonResponse([], 201,
-                ['Location' => $this->generateUrl('get_cart', ['cart' => $cart->getId()])]);
+            return new JsonResponse(
+                [],
+                201,
+                ['Location' => $this->generateUrl('get_cart', ['cart' => $cart->getId()])]
+            );
         }
 
         $view = $this->view($form);

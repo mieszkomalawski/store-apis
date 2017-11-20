@@ -11,7 +11,7 @@ use PhpSpec\ObjectBehavior;
 
 class CartItemSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $product = new Product(
             Uuid::uuid4(),

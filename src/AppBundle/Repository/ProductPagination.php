@@ -3,7 +3,6 @@
 
 namespace AppBundle\Repository;
 
-
 class ProductPagination
 {
     /**
@@ -42,5 +41,4 @@ class ProductPagination
     {
         return $this->items;
     }
-
 }

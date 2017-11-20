@@ -3,7 +3,6 @@
 
 namespace AppBundle\Serializer;
 
-
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
@@ -45,5 +44,4 @@ class CartItemHandler implements SubscribingHandlerInterface
             'price' => $cartItem->getPrice()->getAmount() / 100
         ];
     }
-
 }

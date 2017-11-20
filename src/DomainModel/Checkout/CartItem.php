@@ -39,7 +39,7 @@ class CartItem
     {
         $this->id = $id;
         $this->cart = $cart;
-        if($quantity < 1){
+        if ($quantity < 1) {
             throw new \InvalidArgumentException('Cannot have negative amount of item');
         }
         $this->product = $product;
@@ -88,7 +88,7 @@ class CartItem
      */
     public function increaseQuantity(int $quantity)
     {
-        if($quantity < 1){
+        if ($quantity < 1) {
             throw new \InvalidArgumentException('Cannot increase quantity by negative offset');
         }
         $this->quantity += $quantity;

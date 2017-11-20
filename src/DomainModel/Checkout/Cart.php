@@ -68,7 +68,7 @@ class Cart
          * someone modifies CartItems bypassing Cart itself (aggregate invariants)
          * shallow copy is enough as we do not have to worry about related entities eg. Product
          */
-        return $this->products->map(function(CartItem $cartItem){
+        return $this->products->map(function (CartItem $cartItem) {
             return clone $cartItem;
         });
     }
@@ -84,7 +84,6 @@ class Cart
         } else {
             throw new \InvalidArgumentException('Cannot remove product by id ' . $productId->toString() . ', product not found');
         }
-
     }
 
     /**
@@ -96,7 +95,6 @@ class Cart
             $price = $cartItem->getPrice();
             /** @var Money $carry */
             return $carry->add($price);
-
         }, Money::USD(0));
     }
 
@@ -124,5 +122,4 @@ class Cart
     {
         $this->products->add(new CartItem(Uuid::uuid4(), $this, $product, $quantity));
     }
-
 }

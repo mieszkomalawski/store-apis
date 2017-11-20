@@ -3,7 +3,6 @@
 
 namespace AppBundle\Command;
 
-
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,6 +19,4 @@ class GenerateSwagger extends Command
         $swagger = \Swagger\scan(__DIR__ . '/../Controller/');
         echo $swagger;
     }
-
-
 }

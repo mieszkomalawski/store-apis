@@ -9,7 +9,7 @@ use PhpSpec\ObjectBehavior;
 
 class ProductSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->beConstructedWith(
             Uuid::uuid4(),

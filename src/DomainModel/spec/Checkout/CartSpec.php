@@ -16,7 +16,7 @@ class CartSpec extends ObjectBehavior
     {
         $this->beConstructedWith(Uuid::uuid4());
     }
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Cart::class);
     }
@@ -109,7 +109,7 @@ class CartSpec extends ObjectBehavior
         $product1 = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::USD(99,99)
+            Money::USD(99, 99)
         );
         $this->add($product1, 1);
         $product2 = new Product(
@@ -119,6 +119,6 @@ class CartSpec extends ObjectBehavior
         );
         $this->add($product2, 2);
 
-        $this->getTotal()->shouldBeLike(Money::USD(440 + 99,99));
+        $this->getTotal()->shouldBeLike(Money::USD(440 + 99, 99));
     }
 }

@@ -3,7 +3,6 @@
 
 namespace AppBundle\Command;
 
-
 class UpdateProductCommand
 {
     /**
