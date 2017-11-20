@@ -9,6 +9,7 @@ use FOS\UserBundle\Model\UserManager;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Store\Catalog\Product;
+use Store\Checkout\Cart;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -37,6 +38,10 @@ class LoadProductData implements FixtureInterface, ContainerAwareInterface, Orde
         $manager->persist($icewind);
         $blood = new Product(Uuid::uuid4(), 'Bloodborne', Money::USD(599));
         $manager->persist($blood);
+
+        $cart = new Cart(Uuid::uuid4());
+        $cart->add($fallout, 1);
+        $manager->persist($cart);
 
         $manager->flush();
     }

@@ -3,13 +3,7 @@
 
 namespace AppBundle\Controller\Checkout;
 
-use AppBundle\Command\CreateProductCommand;
-use AppBundle\Command\UpdateProductCommand;
 use AppBundle\Form\AddProductToCartType;
-use AppBundle\Form\CreateProductType;
-use AppBundle\Form\UpdateProductType;
-use AppBundle\Repository\ProductRepository;
-use Doctrine\Common\Persistence\ObjectRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
@@ -17,6 +11,7 @@ use Store\Catalog\Product;
 use Store\Checkout\Cart;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Swagger\Annotations as SWG;
 
 class CartController extends FOSRestController
 {
@@ -34,12 +29,85 @@ class CartController extends FOSRestController
     }
 
     /**
+     *
+     *  @SWG\Get(
+     *     path="/checkout/carts/{cartId}",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *       @SWG\Parameter(
+     *          in="path",
+     *          enum={"0ecdc635-bb14-4ffa-8826-756d9cc3c73d"},
+     *          name="cartId",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *  @SWG\Response(
+     *     response=200,
+     *     description="Returns single cart with products",
+     *     @SWG\Schema(
+     *         ref="#/definitions/Cart"
+     *     )
+     *  )
+     * )
+     *
+     * @SWG\Definition(
+     *     type="object",
+     *     required={"id", "products", "total"},
+     *     definition="Cart",
+     *
+     *               @SWG\Property(
+     *                  property="id",
+     *                  type="string",
+     *                  example="0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
+     *              ),
+     *               @SWG\Property(
+     *                  property="products",
+     *                  type="array",
+     *                  @SWG\Items(ref="#/definitions/ProductCartItem")
+     *              ),
+     *               @SWG\Property(
+     *                  property="total",
+     *                  type="number",
+     *                  example="9.99",
+     *                  minimum=0.01
+     *              )
+     * )
+     *
+     * @SWG\Definition(
+     *     type="object",
+     *     required={"id", "name", "price", "quantity"},
+     *     definition="ProductCartItem",
+     *               @SWG\Property(
+     *                  property="id",
+     *                  type="string",
+     *                  example="66e3a13c-d1a7-4bc0-9732-b99c184602e7"
+     *              ),
+     *               @SWG\Property(
+     *                  property="name",
+     *                  type="string",
+     *                  example="foo"
+     *              ),
+     *              @SWG\Property(
+     *                  property="quantity",
+     *                  type="integer",
+     *                  example="1",
+     *                   minimum=1
+     *              ),
+     *               @SWG\Property(
+     *                  property="price",
+     *                  type="number",
+     *                  example="9.99",
+     *                   minimum=0.01
+     *              )
+     * )
+     *
      * @param Request $request
      * @return Response
      */
     public function getCartAction(Cart $cart)
     {
         $view = $this->view([
+            'id' => $cart->getId()->toString(),
             'products' => $cart->getProducts(),
             'total' => $cart->getTotal()->getAmount() / 100
         ], 200);

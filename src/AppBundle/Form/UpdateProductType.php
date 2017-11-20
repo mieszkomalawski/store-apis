@@ -35,8 +35,8 @@ class UpdateProductType extends AbstractType
 
         $builder
             // we are not mapping fields since properties are already set via constuctor
-            ->add('name', TextType::class, ['required' => false])
-            ->add('price', NumberType::class, ['required' => false]);
+            ->add('name', TextType::class)
+            ->add('price', NumberType::class);
 
         $builder->getForm();
     }

@@ -12,10 +12,7 @@
         "/catalog/products": {
             "get": {
                 "produces": [
-                    "application/json",
-                    "application/xml",
-                    "text/xml",
-                    "text/html"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -41,15 +38,39 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Product created",
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                }
             }
         },
         "/catalog/products/{productId}": {
             "get": {
                 "produces": [
-                    "application/json",
-                    "application/xml",
-                    "text/xml",
-                    "text/html"
+                    "application/json"
                 ],
                 "parameters": [
                     {
@@ -70,12 +91,81 @@
                         }
                     }
                 }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "66e3a13c-d1a7-4bc0-9732-b99c184602e7"
+                        ]
+                    },
+                    {
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UpdateProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product updated",
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/checkout/carts/{cartId}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns single cart with products",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    }
+                }
             }
         }
     },
     "definitions": {
         "ProductListItem": {
-            "required": ["id", "name", "price"],
+            "required": [
+                "id",
+                "name",
+                "price"
+            ],
             "properties": {
                 "id": {
                     "type": "string",
@@ -87,6 +177,96 @@
                 },
                 "price": {
                     "type": "number",
+                    "example": "9.99"
+                }
+            },
+            "type": "object"
+        },
+        "NewProduct": {
+            "required": [
+                "name",
+                "price"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "example": "foo"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "decimal",
+                    "minimum": 0.01,
+                    "example": "9.99"
+                }
+            },
+            "type": "object"
+        },
+        "UpdateProduct": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "example": "foo"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "decimal",
+                    "minimum": 0.01,
+                    "example": "9.99"
+                }
+            },
+            "type": "object"
+        },
+        "Cart": {
+            "required": [
+                "id",
+                "products",
+                "total"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductCartItem"
+                    }
+                },
+                "total": {
+                    "type": "number",
+                    "minimum": 0.01,
+                    "example": "9.99"
+                }
+            },
+            "type": "object"
+        },
+        "ProductCartItem": {
+            "required": [
+                "id",
+                "name",
+                "price",
+                "quantity"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "66e3a13c-d1a7-4bc0-9732-b99c184602e7"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "foo"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "example": "1"
+                },
+                "price": {
+                    "type": "number",
+                    "minimum": 0.01,
                     "example": "9.99"
                 }
             },

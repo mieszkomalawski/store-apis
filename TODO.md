@@ -7,3 +7,4 @@
 - stronicowanie w headerach a nie body
 - pozbyć sie persistent collection z cart
 - pozbyc się dzielenia i mnożenia przez 100
+- uniemożliwić pusty name/price przy update productu

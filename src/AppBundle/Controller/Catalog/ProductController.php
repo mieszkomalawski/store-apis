@@ -14,6 +14,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Store\Catalog\Product;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Swagger\Annotations as SWG;
@@ -35,7 +36,7 @@ class ProductController extends FOSRestController
     /**
      * @SWG\Get(
      *     path="/catalog/products",
-     *     produces={"application/json", "application/xml", "text/xml", "text/html"},
+     *     produces={"application/json"},
      *
      *  @SWG\Response(
      *     response=200,
@@ -63,19 +64,23 @@ class ProductController extends FOSRestController
      *
      * @SWG\Definition(
      *     type="object",
+     *     required={"id", "name", "price"},
      *     definition="ProductListItem",
      *
      *                   @SWG\Property(
      *                  property="id",
-     *                  type="string"
+     *                  type="string",
+     *                  example="66e3a13c-d1a7-4bc0-9732-b99c184602e7"
      *              ),
      *               @SWG\Property(
      *                  property="name",
-     *                  type="string"
+     *                  type="string",
+     *                  example="foo"
      *              ),
      *               @SWG\Property(
      *                  property="price",
-     *                  type="number"
+     *                  type="number",
+     *                  example="9.99"
      *              )
      *
      *
@@ -103,7 +108,7 @@ class ProductController extends FOSRestController
     /**
      *  @SWG\Get(
      *     path="/catalog/products/{productId}",
-     *     produces={"application/json", "application/xml", "text/xml", "text/html"},
+     *     produces={"application/json"},
      *  @SWG\Parameter(
      *     in="path",
      *     enum={"66e3a13c-d1a7-4bc0-9732-b99c184602e7"},
@@ -124,9 +129,8 @@ class ProductController extends FOSRestController
      * @param string $id
      * @return Response
      */
-    public function getProductAction($id)
+    public function getProductAction(Product $product)
     {
-        $product = $this->getProductRepository()->find($id);
         $view = $this->view([
             'id' => $product->getId()->toString(),
             'name' => $product->getName(),
@@ -137,6 +141,53 @@ class ProductController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     *  @SWG\Post(
+     *     path="/catalog/products",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *  @SWG\Parameter(
+     *     in="body",
+     *     name="product",
+     *     required=true,
+     *     @SWG\Schema(ref="#/definitions/NewProduct")
+     * ),
+     *  @SWG\Response(
+     *     response=201,
+     *     description="Product created",
+     *     @SWG\Schema(
+     *         type="array",
+     *          @SWG\Items()
+     *     )
+     * )
+     * )
+     *
+     * @SWG\Definition(
+     *     type="object",
+     *     required={"name", "price"},
+     *     definition="NewProduct",
+     *
+     *               @SWG\Property(
+     *                  property="name",
+     *                  type="string",
+     *                  example="foo",
+     *                  minLength=1,
+     *              ),
+     *               @SWG\Property(
+     *                  property="price",
+     *                  type="number",
+     *                  example="9.99",
+     *                  format="decimal",
+     *                  minimum=0.01
+     *              )
+     *
+     *
+     * )
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function postProductAction(Request $request)
     {
         $form = $this->createForm(CreateProductType::class, new CreateProductCommand());
@@ -155,8 +206,8 @@ class ProductController extends FOSRestController
             $this->getDoctrine()->getManager()->persist($product);
             $this->getDoctrine()->getManager()->flush();
 
-            return new Response('', 201,
-                ['Location' => $this->generateUrl('get_product', ['id' => $product->getId()])]);
+            return new JsonResponse([], 201,
+                ['Location' => $this->generateUrl('get_product', ['product' => $product->getId()])]);
         }
 
         $view = $this->view($form);
@@ -164,9 +215,63 @@ class ProductController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * @SWG\Put(
+     *     path="/catalog/products/{productId}",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *  @SWG\Parameter(
+     *     in="path",
+     *     enum={"66e3a13c-d1a7-4bc0-9732-b99c184602e7"},
+     *     name="productId",
+     *     required=true,
+     *     type="string"
+     * ),
+     *  @SWG\Parameter(
+     *     in="body",
+     *     name="product",
+     *     required=true,
+     *     @SWG\Schema(ref="#/definitions/UpdateProduct")
+     * ),
+     *  @SWG\Response(
+     *     response=200,
+     *     description="Product updated",
+     *     @SWG\Schema(
+     *         type="array",
+     *          @SWG\Items()
+     *     )
+     * )
+     * )
+     *
+     * @SWG\Definition(
+     *     type="object",
+     *     definition="UpdateProduct",
+     *
+     *               @SWG\Property(
+     *                  property="name",
+     *                  minLength=1,
+     *                  type="string",
+     *                  example="foo"
+     *              ),
+     *               @SWG\Property(
+     *                  property="price",
+     *                  type="number",
+     *                  example="9.99",
+     *                  format="decimal",
+     *                  minimum=0.01
+     *              )
+     *
+     *
+     * )
+     *
+     * @param Product $product
+     * @param Request $request
+     * @return JsonResponse|Response
+     */
     public function putProductAction(Product $product, Request $request)
     {
-        $form = $this->createForm(UpdateProductType::class, new UpdateProductCommand());
+        $updateProductCommand = new UpdateProductCommand();
+        $form = $this->createForm(UpdateProductType::class, $updateProductCommand);
 
         $form->submit($request->request->all());
 
@@ -182,8 +287,8 @@ class ProductController extends FOSRestController
             $this->getDoctrine()->getManager()->persist($product);
             $this->getDoctrine()->getManager()->flush();
 
-            return new Response('', 200,
-                ['Location' => $this->generateUrl('get_product', ['id' => $product->getId()])]);
+            return new JsonResponse([], 200,
+                ['Location' => $this->generateUrl('get_product', ['product' => $product->getId()])]);
         }
 
         $view = $this->view($form);
