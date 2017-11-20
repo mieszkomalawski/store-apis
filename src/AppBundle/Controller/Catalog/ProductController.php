@@ -9,15 +9,19 @@ use AppBundle\Form\CreateProductType;
 use AppBundle\Form\UpdateProductType;
 use AppBundle\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectRepository;
-use FOS\RestBundle\Context\Context;
+use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\FOSRestController;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Store\Catalog\Product;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Swagger\Annotations as SWG;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 
 /**
  * @SWG\Swagger(
@@ -106,7 +110,9 @@ class ProductController extends FOSRestController
     }
 
     /**
-     *  @SWG\Get(
+     * @Get("/products/{productId}", name="get_product", options={ "method_prefix" = false }, requirements={"productId" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @ParamConverter("product", options={"mapping": {"productId" : "id"}})
+     * @SWG\Get(
      *     path="/catalog/products/{productId}",
      *     produces={"application/json"},
      *  @SWG\Parameter(
@@ -209,7 +215,7 @@ class ProductController extends FOSRestController
             return new JsonResponse(
                 [],
                 201,
-                ['Location' => $this->generateUrl('get_product', ['product' => $product->getId()])]
+                ['Location' => $this->generateUrl('get_product', ['productId' => $product->getId()])]
             );
         }
 
@@ -219,6 +225,9 @@ class ProductController extends FOSRestController
     }
 
     /**
+     *
+     * @Put("/products/{productId}", name="put_product", options={ "method_prefix" = false }, requirements={"productId" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @ParamConverter("product", options={"mapping": {"productId" : "id"}})
      * @SWG\Put(
      *     path="/catalog/products/{productId}",
      *     produces={"application/json"},
@@ -293,7 +302,7 @@ class ProductController extends FOSRestController
             return new JsonResponse(
                 [],
                 200,
-                ['Location' => $this->generateUrl('get_product', ['product' => $product->getId()])]
+                ['Location' => $this->generateUrl('get_product', ['productId' => $product->getId()])]
             );
         }
 
@@ -302,6 +311,13 @@ class ProductController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * @Delete("/products/{productId}", name="delete_product", options={ "method_prefix" = false }, requirements={"productId" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @ParamConverter("product", options={"mapping": {"productId" : "id"}})
+     *
+     * @param Product $product
+     * @return JsonResponse
+     */
     public function deleteProductAction(Product $product)
     {
         $this->getDoctrine()->getManager()->remove($product);
