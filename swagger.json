@@ -129,6 +129,25 @@
                 }
             }
         },
+        "/checkout/carts": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Cart created",
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                }
+            }
+        },
         "/checkout/carts/{cartId}": {
             "get": {
                 "consumes": [

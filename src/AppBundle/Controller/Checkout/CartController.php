@@ -9,12 +9,32 @@ use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Store\Catalog\Product;
 use Store\Checkout\Cart;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Swagger\Annotations as SWG;
 
 class CartController extends FOSRestController
 {
+    /**
+     *
+     *  @SWG\Post(
+     *     path="/checkout/carts",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *  @SWG\Response(
+     *     response=201,
+     *     description="Cart created",
+     *     @SWG\Schema(
+     *         type="array",
+     *          @SWG\Items()
+     *     )
+     * )
+     * )
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function postCartAction(Request $request)
     {
         $id = Uuid::uuid4();
@@ -23,7 +43,7 @@ class CartController extends FOSRestController
         $this->getDoctrine()->getManager()->persist($cart);
         $this->getDoctrine()->getManager()->flush();
 
-        return new Response('', 201,
+        return new JsonResponse([], 201,
                 ['Location' => $this->generateUrl('get_cart', ['cart' => $id])]);
 
     }
