@@ -176,6 +176,83 @@
                     }
                 }
             }
+        },
+        "/checkout/carts/{cartId}/products": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
+                        ]
+                    },
+                    {
+                        "name": "addProductToCart",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/AddProductToCart"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Product added to cart",
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/checkout/carts/{cartId}/products/{productId}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
+                        ]
+                    },
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "7dbaf7f6-c415-42cf-85c2-9a8fababcba6"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product removed from cart",
+                        "schema": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -287,6 +364,24 @@
                     "type": "number",
                     "minimum": 0.01,
                     "example": "9.99"
+                }
+            },
+            "type": "object"
+        },
+        "AddProductToCart": {
+            "required": [
+                "product",
+                "quantity"
+            ],
+            "properties": {
+                "product": {
+                    "type": "string",
+                    "example": "7dbaf7f6-c415-42cf-85c2-9a8fababcba6"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "example": 1
                 }
             },
             "type": "object"

@@ -301,7 +301,7 @@ class ProductController extends FOSRestController
         $this->getDoctrine()->getManager()->remove($product);
         $this->getDoctrine()->getManager()->flush();
 
-        return new Response('', 200);
+        return new JsonResponse([], 200);
     }
 
     /**

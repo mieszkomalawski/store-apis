@@ -135,7 +135,61 @@ class CartController extends FOSRestController
         return $this->handleView($view);
     }
 
-
+    /**
+     *
+     * @SWG\Post(
+     *     path="/checkout/carts/{cartId}/products",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *       @SWG\Parameter(
+     *          in="path",
+     *          enum={"0ecdc635-bb14-4ffa-8826-756d9cc3c73d"},
+     *          name="cartId",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *  @SWG\Parameter(
+     *     in="body",
+     *     name="addProductToCart",
+     *     required=true,
+     *     @SWG\Schema(
+     *         ref="#/definitions/AddProductToCart"
+     *     )
+     * ),
+     *  @SWG\Response(
+     *     response=201,
+     *     description="Product added to cart",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items()
+     *     )
+     *  )
+     * )
+     *
+     * @SWG\Definition(
+     *     type="object",
+     *     required={"product", "quantity"},
+     *     definition="AddProductToCart",
+     *
+     *               @SWG\Property(
+     *                  property="product",
+     *                  type="string",
+     *                  example="7dbaf7f6-c415-42cf-85c2-9a8fababcba6"
+     *              ),
+     *               @SWG\Property(
+     *                  property="quantity",
+     *                  type="integer",
+     *                  example=1,
+     *                  minimum=1
+     *              )
+     *
+     *
+     * )
+     *
+     * @param Cart $cart
+     * @param Request $request
+     * @return Response
+     */
     public function postCartProductAction(Cart $cart, Request $request)
     {
         $form = $this->createForm(AddProductToCartType::class);
@@ -148,7 +202,7 @@ class CartController extends FOSRestController
             $this->getDoctrine()->getManager()->persist($cart);
             $this->getDoctrine()->getManager()->flush();
 
-            return new Response('', 201,
+            return new JsonResponse([], 201,
                 ['Location' => $this->generateUrl('get_cart', ['cart' => $cart->getId()])]);
         }
 
@@ -157,12 +211,46 @@ class CartController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * @SWG\Delete(
+     *     path="/checkout/carts/{cartId}/products/{productId}",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *       @SWG\Parameter(
+     *          in="path",
+     *          enum={"0ecdc635-bb14-4ffa-8826-756d9cc3c73d"},
+     *          name="cartId",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *     @SWG\Parameter(
+     *          in="path",
+     *          enum={"7dbaf7f6-c415-42cf-85c2-9a8fababcba6"},
+     *          name="productId",
+     *          required=true,
+     *          type="string"
+     *      ),
+     *  @SWG\Response(
+     *     response=200,
+     *     description="Product removed from cart",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items()
+     *     )
+     *  )
+     * )
+     *
+     * @param Cart $cart
+     * @param Product $product
+     * @return Response
+     */
     public function deleteCartProductAction(Cart $cart, Product $product)
     {
         $cart->remove($product->getId());
         $this->getDoctrine()->getManager()->persist($cart);
         $this->getDoctrine()->getManager()->flush();
 
-        return new Response('', 200);
+        return new JsonResponse([], 200);
     }
 }
