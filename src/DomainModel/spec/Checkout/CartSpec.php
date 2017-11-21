@@ -10,6 +10,7 @@ use Store\Checkout\Cart;
 use PhpSpec\ObjectBehavior;
 use Store\Checkout\CartItem;
 use Store\Checkout\InMemoryAvailableProductCollection;
+use Store\SharedKernel\MoneyFactory;
 
 class CartSpec extends ObjectBehavior
 {
@@ -27,7 +28,7 @@ class CartSpec extends ObjectBehavior
         $product = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::USD(100)
+            MoneyFactory::USD(100)
         );
         $this->add($product->getId());
     }
@@ -37,7 +38,7 @@ class CartSpec extends ObjectBehavior
         $product = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::USD(100)
+            MoneyFactory::USD(100)
         );
         $this->add($product->getId());
         $this->remove($product->getId());
@@ -50,7 +51,7 @@ class CartSpec extends ObjectBehavior
         $product = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::USD(100)
+            MoneyFactory::USD(100)
         );
         $this->add($product->getId());
         $uuid = Uuid::uuid4();
@@ -64,26 +65,26 @@ class CartSpec extends ObjectBehavior
         $product1 = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::USD(100)
+            MoneyFactory::USD(100)
         );
         $this->add($product1->getId());
         $product2 = new Product(
             Uuid::uuid4(),
             'testProduct2',
-            Money::USD(200)
+            MoneyFactory::USD(200)
         );
         $this->add($product2->getId());
         $product3 = new Product(
             Uuid::uuid4(),
             'testProduct3',
-            Money::USD(100)
+            MoneyFactory::USD(100)
         );
         $this->add($product3->getId());
 
         $product4 = new Product(
             Uuid::uuid4(),
             'testProduct4',
-            Money::USD(300)
+            MoneyFactory::USD(300)
         );
 
         $this->shouldThrow(new \InvalidArgumentException('Cannot have more than 3 products in cart'))
@@ -95,16 +96,16 @@ class CartSpec extends ObjectBehavior
         $product1 = new Product(
             Uuid::uuid4(),
             'testProduct',
-            Money::USD(99, 99)
+            MoneyFactory::USD(99.99)
         );
         $this->add($product1->getId());
         $product2 = new Product(
             Uuid::uuid4(),
             'testProduct2',
-            Money::USD(220)
+            MoneyFactory::USD(220)
         );
         $this->add($product2->getId());
 
-        $this->getTotal(new InMemoryAvailableProductCollection([$product1, $product2]))->shouldBeLike(Money::USD(220 + 99, 99));
+        $this->getTotal(new InMemoryAvailableProductCollection([$product1, $product2]))->shouldBeLike(MoneyFactory::USD(220 + 99.99));
     }
 }

@@ -16,6 +16,7 @@ use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Store\Catalog\Product;
+use Store\SharedKernel\MoneyFactory;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -141,7 +142,7 @@ class ProductController extends FOSRestController
             'id' => $product->getId()->toString(),
             'name' => $product->getName(),
             // amount is in lowest units always
-            'price' => $product->getPrice()->getAmount() / 100
+            'price' => $product->getPriceDecimal()
         ], 200);
 
         return $this->handleView($view);
@@ -207,7 +208,7 @@ class ProductController extends FOSRestController
             $product = new Product(
                 $uuid,
                 $createProductCommand->getName(),
-                Money::USD($createProductCommand->getPrice() * 100)
+                MoneyFactory::USD($createProductCommand->getPrice() * 100)
             );
             $this->getDoctrine()->getManager()->persist($product);
             $this->getDoctrine()->getManager()->flush();
@@ -294,7 +295,7 @@ class ProductController extends FOSRestController
                 $product->changeName($updateProductCommand->getName());
             }
             if ($updateProductCommand->getPrice()) {
-                $product->changePrice(Money::USD($updateProductCommand->getPrice() * 100));
+                $product->changePrice(MoneyFactory::USD($updateProductCommand->getPrice()));
             }
             $this->getDoctrine()->getManager()->persist($product);
             $this->getDoctrine()->getManager()->flush();

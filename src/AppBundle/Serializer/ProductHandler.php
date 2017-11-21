@@ -36,8 +36,7 @@ class ProductHandler implements SubscribingHandlerInterface
         return [
             'id' => $product->getId()->toString(),
             'name' => $product->getName(),
-            // amount is in lowest units always
-            'price' => $product->getPrice()->getAmount() / 100
+            'price' => $product->getPriceDecimal()
         ];
     }
 }

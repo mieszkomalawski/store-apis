@@ -82,4 +82,13 @@ class Product
     {
         return $this->price;
     }
+
+    /**
+     * Return normalized amount
+     * @return float
+     */
+    public function getPriceDecimal(): float
+    {
+        return $this->price->getAmount() / 100;
+    }
 }

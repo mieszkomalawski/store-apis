@@ -1,7 +1,6 @@
 - Custom 500 exceptions - exception controller
 - Custom 400 exceptions
 - pozbyc się dzielenia i mnożenia przez 100
-- upewnieć się co do stabilności testów po wyczyszceniu bazy
 - product repository DI
 - upiekszyć swaggera
 - czyścić dane po testach dredd

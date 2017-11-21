@@ -13,6 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 use Store\Checkout\Event\CartCreated;
 use Store\Checkout\Event\ProductAdded;
 use Store\Checkout\Event\ProductRemoved;
+use Store\SharedKernel\MoneyFactory;
 
 class Cart extends AggregateRoot
 {
@@ -106,7 +107,7 @@ class Cart extends AggregateRoot
                 $price = $product->getPrice();
                 /** @var Money $carry */
                 return $carry->add($price);
-            }, Money::USD(0));
+            }, MoneyFactory::USD(0));
     }
 
     /**
