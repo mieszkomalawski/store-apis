@@ -38,7 +38,7 @@ install:
 
 
 before_script:
-  - mysql -u root -e 'CREATE DATABASE symfony;
+  - mysql -u root -e 'CREATE DATABASE symfony';
   - php bin/console server:start 127.0.0.1:8003
   - dredd --language=vendor/bin/dredd-hooks-php --hookfiles=./hooks*.php
 
