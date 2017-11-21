@@ -33,14 +33,18 @@ class Cart extends AggregateRoot
     /**
      * Cart constructor.
      * @param UuidInterface $id
+     * @return Cart
      */
-    public static function create(UuidInterface $id)
+    public static function create(UuidInterface $id): Cart
     {
         $cart = new self();
         $cart->recordThat(CartCreated::create($id));
         return $cart;
     }
 
+    /**
+     * @return string
+     */
     protected function aggregateId(): string
     {
         if (!$this->id instanceof Uuid) {
@@ -62,9 +66,8 @@ class Cart extends AggregateRoot
 
     /**
      * @param UuidInterface $productId
-     * @param int $quantity
      */
-    public function add(UuidInterface $productId)
+    public function add(UuidInterface $productId): void
     {
         if (count($this->products) >= self::ITEM_LIMIT) {
             throw TooManyProductsException::create();
@@ -75,6 +78,10 @@ class Cart extends AggregateRoot
         ));
     }
 
+    /**
+     * @param UuidInterface $productId
+     * @throws CannotRemoveProductException
+     */
     public function remove(UuidInterface $productId): void
     {
         $hasThisProduct = $this->findItemById($productId);
@@ -125,33 +132,47 @@ class Cart extends AggregateRoot
         });
     }
 
-    /**
-     * @param UuidInterface $productId
-     * @param int $quantity
-     */
-    private function addProduct(UuidInterface $productId): void
-    {
-        $this->products->add($productId);
-    }
-
     protected function apply(AggregateChanged $event): void
     {
         switch (get_class($event)) {
             case CartCreated::class:
                 /** @var CartCreated $event */
-                $this->id = Uuid::fromString($event->getId());
-                $this->products = new ArrayCollection();
+                $this->applyCreate($event);
                 break;
             case ProductAdded::class:
                 /** @var ProductAdded $event */
-                $id = $event->getProductId();
-                $this->addProduct($id);
+                $this->applyProductAdded($event);
                 break;
             case ProductRemoved::class:
                 /** @var ProductRemoved $event */
-                $cartItem = $this->findItemById($event->getProductId())->first();
-                $this->products->removeElement($cartItem);
+                $this->applyProductRemoved($event);
                 break;
         }
+    }
+
+    /**
+     * @param CartCreated $event
+     */
+    protected function applyCreate(CartCreated $event): void
+    {
+        $this->id = Uuid::fromString($event->getId());
+        $this->products = new ArrayCollection();
+    }
+
+    /**
+     * @param ProductAdded $event
+     */
+    protected function applyProductAdded(ProductAdded $event): void
+    {
+        $this->products->add($event->getProductId());
+    }
+
+    /**
+     * @param ProductRemoved $event
+     */
+    protected function applyProductRemoved(ProductRemoved $event): void
+    {
+        $cartItem = $this->findItemById($event->getProductId())->first();
+        $this->products->removeElement($cartItem);
     }
 }

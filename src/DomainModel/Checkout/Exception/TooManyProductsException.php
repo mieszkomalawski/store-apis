@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Store\Checkout\Exception;
 
@@ -11,6 +11,6 @@ class TooManyProductsException extends \InvalidArgumentException
      */
     public static function create(): TooManyProductsException
     {
-        return new TooManyProductsException('Cannot have more than 3 products in cart');
+        return new self('Cannot have more than 3 products in cart');
     }
 }

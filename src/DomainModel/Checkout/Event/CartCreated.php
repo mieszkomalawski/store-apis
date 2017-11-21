@@ -11,7 +11,7 @@ class CartCreated extends AggregateChanged
 {
     public static function create(
         UuidInterface $cartId
-    ) {
+    ): AggregateChanged {
         return static::occur(
             (string)$cartId,
             []

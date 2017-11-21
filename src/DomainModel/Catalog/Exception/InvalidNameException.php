@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Store\Catalog\Exception;
 
@@ -7,7 +7,7 @@ namespace Store\Catalog\Exception;
 class InvalidNameException extends \InvalidArgumentException
 {
     /**
-     * @return InvalidPriceException
+     * @return InvalidNameException
      */
     static public function create(): InvalidNameException
     {

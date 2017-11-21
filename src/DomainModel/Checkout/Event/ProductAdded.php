@@ -12,7 +12,7 @@ class ProductAdded extends AggregateChanged
     public static function create(
         UuidInterface $cartId,
         UuidInterface $productId
-    ) {
+    ): AggregateChanged {
         return static::occur(
             (string)$cartId,
             [
