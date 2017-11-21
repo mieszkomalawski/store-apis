@@ -5,7 +5,6 @@
 - product repository DI
 - upiekszyć swaggera
 - czyścić dane po testach dredd
-- uniemożliwić pusty name/price przy update productu
-- simplify validation
+- uniemożliwić pusty name/price przy update productus
 - stronicowanie w headerach a nie body
 - Application layer in domain
