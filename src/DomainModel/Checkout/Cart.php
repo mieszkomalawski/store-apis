@@ -13,6 +13,8 @@ use Ramsey\Uuid\UuidInterface;
 use Store\Checkout\Event\CartCreated;
 use Store\Checkout\Event\ProductAdded;
 use Store\Checkout\Event\ProductRemoved;
+use Store\Checkout\Exception\CannotRemoveProductException;
+use Store\Checkout\Exception\TooManyProductsException;
 use Store\SharedKernel\MoneyFactory;
 
 class Cart extends AggregateRoot
@@ -65,7 +67,7 @@ class Cart extends AggregateRoot
     public function add(UuidInterface $productId)
     {
         if (count($this->products) >= self::ITEM_LIMIT) {
-            throw new \InvalidArgumentException('Cannot have more than 3 products in cart');
+            throw TooManyProductsException::create();
         }
         $this->recordThat(ProductAdded::create(
             $this->id,
@@ -83,7 +85,7 @@ class Cart extends AggregateRoot
                 $productId
             ));
         } else {
-            throw new \InvalidArgumentException('Cannot remove product by id ' . $productId->toString() . ', product not found');
+            throw CannotRemoveProductException::create($productId);
         }
     }
 

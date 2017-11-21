@@ -6,6 +6,8 @@ namespace Store\Catalog;
 
 use Money\Money;
 use Ramsey\Uuid\UuidInterface;
+use Store\Catalog\Exception\InvalidNameException;
+use Store\Catalog\Exception\InvalidPriceException;
 
 class Product
 {
@@ -32,12 +34,8 @@ class Product
      */
     public function __construct(UuidInterface $id, string $name, Money $price)
     {
-        if ($price->getAmount() < 0) {
-            throw new \InvalidArgumentException('Product price cannot be negative');
-        }
-        if (empty($name)) {
-            throw new \InvalidArgumentException('Name cannot be blank');
-        }
+        $this->validatePrice($price);
+        $this->validateName($name);
         $this->id = $id;
         $this->name = $name;
         $this->price = $price;
@@ -48,6 +46,7 @@ class Product
      */
     public function changePrice(Money $price): void
     {
+        $this->validatePrice($price);
         $this->price = $price;
     }
 
@@ -56,6 +55,7 @@ class Product
      */
     public function changeName(string $name): void
     {
+        $this->validateName($name);
         $this->name = $name;
     }
 
@@ -90,5 +90,25 @@ class Product
     public function getPriceDecimal(): float
     {
         return $this->price->getAmount() / 100;
+    }
+
+    /**
+     * @param Money $price
+     */
+    private function validatePrice(Money $price): void
+    {
+        if ($price->getAmount() < 0) {
+            throw InvalidPriceException::create();
+        }
+    }
+
+    /**
+     * @param string $name
+     */
+    private function validateName(string $name): void
+    {
+        if (empty($name)) {
+            throw InvalidNameException::create();
+        }
     }
 }

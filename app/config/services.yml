@@ -93,12 +93,5 @@ services:
       arguments:
         - '@cart_aggregate_repository'
 
-    #mysql_projection_manager:
-    #  class: Prooph\EventStore\Pdo\Projection\MySqlProjectionManager
-    #  public: true
-    #  arguments:
-    #    - '@mysql_event_store'
-    #    - '@wrapped_connection'
-
 
 

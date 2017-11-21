@@ -4,6 +4,8 @@ namespace spec\Store\Catalog;
 
 use Money\Money;
 use Ramsey\Uuid\Uuid;
+use Store\Catalog\Exception\InvalidNameException;
+use Store\Catalog\Exception\InvalidPriceException;
 use Store\Catalog\Product;
 use PhpSpec\ObjectBehavior;
 
@@ -21,7 +23,7 @@ class ProductSpec extends ObjectBehavior
 
     public function it_should_not_accept_negative_price()
     {
-        $this->shouldThrow(new \InvalidArgumentException('Product price cannot be negative'))->during('__construct', [
+        $this->shouldThrow(new InvalidPriceException('Product price cannot be negative'))->during('__construct', [
             Uuid::uuid4(),
             'testProduct',
             Money::USD(-100)
@@ -30,7 +32,7 @@ class ProductSpec extends ObjectBehavior
 
     public function it_should_not_have_empty_name()
     {
-        $this->shouldThrow(new \InvalidArgumentException('Name cannot be blank'))->during('__construct', [
+        $this->shouldThrow(new InvalidNameException('Name cannot be blank'))->during('__construct', [
             Uuid::uuid4(),
             '',
             Money::USD(100)

@@ -9,6 +9,8 @@ use Store\Catalog\Product;
 use Store\Checkout\Cart;
 use PhpSpec\ObjectBehavior;
 use Store\Checkout\CartItem;
+use Store\Checkout\Exception\CannotRemoveProductException;
+use Store\Checkout\Exception\TooManyProductsException;
 use Store\Checkout\InMemoryAvailableProductCollection;
 use Store\SharedKernel\MoneyFactory;
 
@@ -56,7 +58,7 @@ class CartSpec extends ObjectBehavior
         $this->add($product->getId());
         $uuid = Uuid::uuid4();
 
-        $this->shouldThrow(new \InvalidArgumentException('Cannot remove product by id '. (string)$uuid . ', product not found'))
+        $this->shouldThrow(new CannotRemoveProductException('Cannot remove product by id '. (string)$uuid . ', product not found'))
             ->during('remove', [$uuid]);
     }
 
@@ -87,7 +89,7 @@ class CartSpec extends ObjectBehavior
             MoneyFactory::USD(300)
         );
 
-        $this->shouldThrow(new \InvalidArgumentException('Cannot have more than 3 products in cart'))
+        $this->shouldThrow(new TooManyProductsException('Cannot have more than 3 products in cart'))
             ->during('add', [$product4->getId()]);
     }
 

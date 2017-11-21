@@ -17,6 +17,6 @@ class GenerateSwagger extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $swagger = \Swagger\scan(__DIR__ . '/../Controller/');
-        echo $swagger;
+        $output->write((string)$swagger);
     }
 }

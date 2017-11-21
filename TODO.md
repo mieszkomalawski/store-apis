@@ -1,4 +1,5 @@
 - Application layer in domain
-- swagger: walidacja ścieżki 400
 - HATEOAS
 - domenowe wyjątki
+- uprościć kod domenowy
+- travis
