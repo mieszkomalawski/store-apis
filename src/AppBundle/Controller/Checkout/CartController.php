@@ -58,8 +58,7 @@ class CartController extends FOSRestController
     {
         $id = Uuid::uuid4();
         $cart = Cart::create(
-            $id,
-            $this->getDoctrine()->getRepository(Product::class)
+            $id
         );
         $this->cartAggregateRepository->saveAggregateRoot($cart);
 
@@ -77,65 +76,64 @@ class CartController extends FOSRestController
      *     path="/checkout/carts/{cartId}",
      *     produces={"application/json"},
      *     consumes={"application/json"},
-     *       @SWG\Parameter(
+     *     @SWG\Parameter(
      *          in="path",
      *          enum={"3d73fbef-7998-4836-a521-004fdfbb0241"},
      *          name="cartId",
      *          required=true,
      *          type="string"
-     *      ),
-     *  @SWG\Response(
-     *     response=200,
-     *     description="Returns single cart with products",
-     *     @SWG\Schema(
-     *         ref="#/definitions/Cart"
+     *     ),
+     *     @SWG\Response(
+     *          response=200,
+     *          description="Returns single cart with products",
+     *          @SWG\Schema(
+     *              ref="#/definitions/Cart"
+     *          )
      *     )
-     *  )
      * )
      *
      * @SWG\Definition(
      *     type="object",
      *     required={"id", "products", "total"},
      *     definition="Cart",
-     *
-     *               @SWG\Property(
-     *                  property="id",
-     *                  type="string",
-     *                  example="0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
-     *              ),
-     *               @SWG\Property(
-     *                  property="products",
-     *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/ProductCartItem")
-     *              ),
-     *               @SWG\Property(
-     *                  property="total",
-     *                  type="number",
-     *                  example="9.99",
-     *                  minimum=0
-     *              )
+     *     @SWG\Property(
+     *          property="id",
+     *          type="string",
+     *          example="0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
+     *     ),
+     *     @SWG\Property(
+     *          property="products",
+     *          type="array",
+     *          @SWG\Items(ref="#/definitions/ProductCartItem")
+     *     ),
+     *     @SWG\Property(
+     *          property="total",
+     *          type="number",
+     *          example="9.99",
+     *          minimum=0
+     *     )
      * )
      *
      * @SWG\Definition(
      *     type="object",
      *     required={"id", "name", "price"},
      *     definition="ProductCartItem",
-     *               @SWG\Property(
-     *                  property="id",
-     *                  type="string",
-     *                  example="66e3a13c-d1a7-4bc0-9732-b99c184602e7"
-     *              ),
-     *               @SWG\Property(
-     *                  property="name",
-     *                  type="string",
-     *                  example="foo"
-     *              ),
-     *               @SWG\Property(
-     *                  property="price",
-     *                  type="number",
-     *                  example="9.99",
-     *                   minimum=0.01
-     *              )
+     *     @SWG\Property(
+     *         property="id",
+     *         type="string",
+     *         example="66e3a13c-d1a7-4bc0-9732-b99c184602e7"
+     *     ),
+     *     @SWG\Property(
+     *         property="name",
+     *         type="string",
+     *         example="foo"
+     *     ),
+     *     @SWG\Property(
+     *         property="price",
+     *         type="number",
+     *         example="9.99",
+     *         minimum=0.01
+     *     )
      * )
      *
      * @param string $cart
@@ -171,7 +169,7 @@ class CartController extends FOSRestController
      *     path="/checkout/carts/{cartId}/products",
      *     produces={"application/json"},
      *     consumes={"application/json"},
-     *       @SWG\Parameter(
+     *     @SWG\Parameter(
      *          in="path",
      *          enum={"3d73fbef-7998-4836-a521-004fdfbb0241"},
      *          name="cartId",
@@ -200,14 +198,11 @@ class CartController extends FOSRestController
      *     type="object",
      *     required={"product"},
      *     definition="AddProductToCart",
-     *
-     *               @SWG\Property(
-     *                  property="product",
-     *                  type="string",
-     *                  example="7dbaf7f6-c415-42cf-85c2-9a8fababcba6"
-     *              )
-     *
-     *
+     *     @SWG\Property(
+     *          property="product",
+     *          type="string",
+     *          example="7dbaf7f6-c415-42cf-85c2-9a8fababcba6"
+     *     )
      * )
      *
      * @param string $cart

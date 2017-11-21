@@ -71,24 +71,21 @@ class ProductController extends FOSRestController
      *     type="object",
      *     required={"id", "name", "price"},
      *     definition="ProductListItem",
-     *
-     *                   @SWG\Property(
-     *                  property="id",
-     *                  type="string",
-     *                  example="66e3a13c-d1a7-4bc0-9732-b99c184602e7"
-     *              ),
-     *               @SWG\Property(
-     *                  property="name",
-     *                  type="string",
-     *                  example="foo"
-     *              ),
-     *               @SWG\Property(
-     *                  property="price",
-     *                  type="number",
-     *                  example="9.99"
-     *              )
-     *
-     *
+     *     @SWG\Property(
+     *        property="id",
+     *        type="string",
+     *        example="66e3a13c-d1a7-4bc0-9732-b99c184602e7"
+     *     ),
+     *     @SWG\Property(
+     *        property="name",
+     *        type="string",
+     *        example="foo"
+     *     ),
+     *     @SWG\Property(
+     *        property="price",
+     *        type="number",
+     *        example="9.99"
+     *     )
      * )
      *
      * @param Request $request
@@ -122,14 +119,14 @@ class ProductController extends FOSRestController
      *     name="productId",
      *     required=true,
      *     type="string"
-     * ),
+     *  ),
      *  @SWG\Response(
      *     response=200,
      *     description="Returns product",
      *     @SWG\Schema(
      *         ref="#/definitions/ProductListItem"
      *     )
-     * )
+     *  )
      * )
      *
      *
@@ -174,22 +171,19 @@ class ProductController extends FOSRestController
      *     type="object",
      *     required={"name", "price"},
      *     definition="NewProduct",
-     *
-     *               @SWG\Property(
-     *                  property="name",
-     *                  type="string",
-     *                  example="foo",
-     *                  minLength=1,
-     *              ),
-     *               @SWG\Property(
-     *                  property="price",
-     *                  type="number",
-     *                  example="9.99",
-     *                  format="decimal",
-     *                  minimum=0.01
-     *              )
-     *
-     *
+     *     @SWG\Property(
+     *        property="name",
+     *        type="string",
+     *        example="foo",
+     *        minLength=1,
+     *     ),
+     *     @SWG\Property(
+     *        property="price",
+     *        type="number",
+     *        example="9.99",
+     *        format="decimal",
+     *        minimum=0.01
+     *     )
      * )
      *
      * @param Request $request
@@ -259,22 +253,19 @@ class ProductController extends FOSRestController
      * @SWG\Definition(
      *     type="object",
      *     definition="UpdateProduct",
-     *
-     *               @SWG\Property(
-     *                  property="name",
-     *                  minLength=1,
-     *                  type="string",
-     *                  example="foo"
-     *              ),
-     *               @SWG\Property(
-     *                  property="price",
-     *                  type="number",
-     *                  example="9.99",
-     *                  format="decimal",
-     *                  minimum=0.01
-     *              )
-     *
-     *
+     *     @SWG\Property(
+     *        property="name",
+     *        minLength=1,
+     *        type="string",
+     *        example="foo"
+     *     ),
+     *     @SWG\Property(
+     *        property="price",
+     *        type="number",
+     *        example="9.99",
+     *        format="decimal",
+     *        minimum=0.01
+     *     )
      * )
      *
      * @param Product $product
