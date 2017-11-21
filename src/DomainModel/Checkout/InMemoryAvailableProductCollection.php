@@ -3,7 +3,6 @@
 
 namespace Store\Checkout;
 
-
 use Ramsey\Uuid\UuidInterface;
 use Store\Catalog\Product;
 
@@ -20,7 +19,7 @@ class InMemoryAvailableProductCollection implements AvailableProductCollection
      */
     public function __construct(array $products)
     {
-        foreach ($products as $product){
+        foreach ($products as $product) {
             $this->products[(string)$product->getId()] = $product;
         }
     }
@@ -33,5 +32,4 @@ class InMemoryAvailableProductCollection implements AvailableProductCollection
     {
         return $this->products[(string)$id];
     }
-
 }

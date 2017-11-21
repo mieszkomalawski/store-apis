@@ -36,7 +36,6 @@ class LoadCartData implements FixtureInterface, ContainerAwareInterface, Ordered
         /** @var AggregateRepository $cartAggregateRepository */
         $cartAggregateRepository = $this->container->get('cart_aggregate_repository');
         $cartAggregateRepository->saveAggregateRoot($cart);
-
     }
 
     public function getOrder()

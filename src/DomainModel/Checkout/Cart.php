@@ -17,7 +17,6 @@ use Store\SharedKernel\MoneyFactory;
 
 class Cart extends AggregateRoot
 {
-
     const ITEM_LIMIT = 3;
     /**
      * @var ArrayCollection
@@ -101,13 +100,16 @@ class Cart extends AggregateRoot
      */
     public function getTotal(AvailableProductCollection $availableProductCollection): Money
     {
-        return array_reduce($this->products->toArray(),
+        return array_reduce(
+            $this->products->toArray(),
             function ($carry, UuidInterface $cartItem) use ($availableProductCollection) {
                 $product = $availableProductCollection->getById($cartItem);
                 $price = $product->getPrice();
                 /** @var Money $carry */
                 return $carry->add($price);
-            }, MoneyFactory::USD(0));
+            },
+            MoneyFactory::USD(0)
+        );
     }
 
     /**

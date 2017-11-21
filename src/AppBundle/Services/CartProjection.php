@@ -3,7 +3,6 @@
 
 namespace AppBundle\Services;
 
-
 use Prooph\EventStore\Projection\ProjectionManager;
 
 class CartProjection
@@ -30,7 +29,7 @@ class CartProjection
         $projection
             ->fromAll()
             ->whenAny(function ($state, $event) use ($connection) {
-                switch(get_class($event)){
+                switch (get_class($event)) {
                     case LoanCreated::class:
                         /**
                          * @var LoanCreated $event

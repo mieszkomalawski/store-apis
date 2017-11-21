@@ -3,7 +3,6 @@
 
 namespace Store\SharedKernel;
 
-
 use Money\Currency;
 use Money\Money;
 

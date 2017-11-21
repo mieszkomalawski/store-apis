@@ -22,7 +22,6 @@ use Swagger\Annotations as SWG;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 
-
 class ExceptionController extends FOSRestController
 {
     public function showAction()

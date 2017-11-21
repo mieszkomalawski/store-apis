@@ -3,7 +3,6 @@
 
 namespace Store\Checkout;
 
-
 use Ramsey\Uuid\UuidInterface;
 use Store\Catalog\Product;
 

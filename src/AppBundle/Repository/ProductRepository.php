@@ -41,6 +41,4 @@ class ProductRepository extends EntityRepository implements AvailableProductColl
     {
         return $this->find($id);
     }
-
-
 }

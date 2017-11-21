@@ -3,7 +3,6 @@
 
 namespace AppBundle;
 
-
 use ArrayIterator;
 use Prooph\Common\Messaging\FQCNMessageFactory;
 use Prooph\EventStore\EventStore;
@@ -26,8 +25,7 @@ class EventStoreFactory
         \Doctrine\DBAL\Driver\Connection $connection,
         MySqlSimpleStreamStrategy $simpleStreamStrategy,
         StreamName $streamName
-    ): EventStore
-    {
+    ): EventStore {
         $eventStore = new MySqlEventStore(
             $FQCNMessageFactory,
             $connection,
@@ -35,7 +33,7 @@ class EventStoreFactory
         );
         $singleStream = new Stream($streamName, new ArrayIterator());
 
-        if(!$eventStore->hasStream($streamName)) {
+        if (!$eventStore->hasStream($streamName)) {
             $eventStore->create($singleStream);
         }
 

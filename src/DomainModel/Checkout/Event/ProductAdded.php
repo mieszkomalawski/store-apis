@@ -3,7 +3,6 @@
 
 namespace Store\Checkout\Event;
 
-
 use Prooph\EventSourcing\AggregateChanged;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
