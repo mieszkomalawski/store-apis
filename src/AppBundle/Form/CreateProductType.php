@@ -2,18 +2,15 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Command\CreateProductCommand;
-use AppBundle\CustomPropertyAccessor;
-use Money\Money;
-use Store\Catalog\Product;
+use AppBundle\Model\CreateProductCommand;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Range;
 
 class CreateProductType extends AbstractType
 {
@@ -32,8 +29,18 @@ class CreateProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('price', NumberType::class)
+            ->add('name', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 2])
+                ]
+            ])
+            ->add('price', NumberType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Range(['min' => 0.01])
+                ]
+            ])
             ->getForm();
     }
 }

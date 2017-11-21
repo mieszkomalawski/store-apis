@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AppBundle\Command;
+namespace AppBundle\Model;
 
-class CreateProductCommand
+class UpdateProductCommand
 {
     /**
      * @var string

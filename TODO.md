@@ -1,4 +1,4 @@
-- Custom 500 exceptions - exception controller
-- uniemożliwić pusty name/price przy update productus
-- stronicowanie w headerach a nie body
 - Application layer in domain
+- swagger: walidacja ścieżki 400
+- HATEOAS
+- domenowe wyjątki

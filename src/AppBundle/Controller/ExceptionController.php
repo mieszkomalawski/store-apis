@@ -3,8 +3,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Command\CreateProductCommand;
-use AppBundle\Command\UpdateProductCommand;
+use AppBundle\Model\CreateProductCommand;
+use AppBundle\Model\UpdateProductCommand;
 use AppBundle\Form\CreateProductType;
 use AppBundle\Form\UpdateProductType;
 use AppBundle\Repository\ProductRepository;
@@ -15,6 +15,7 @@ use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Store\Catalog\Product;
+use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,13 +34,25 @@ class ExceptionController extends FOSRestController
      */
     public function showAction(\Exception $exception)
     {
-        if($exception instanceof NotFoundHttpException){
-            return new JsonResponse(['mesage' => 'route not found'], 404);
+        if ($this->isDebugMode()) {
+            $responseBody['exception'] = $exception->getMessage();
+            $responseBody['class'] = get_class($exception);
         }
-        if($exception instanceof MethodNotAllowedHttpException){
-            return new JsonResponse(['mesage' => 'method not allowed'], 405);
+        if ($exception instanceof NotFoundHttpException) {
+            $responseBody['message'] = 'route not found';
+            return new JsonResponse($responseBody, 404);
+        }
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            $responseBody['message'] = 'method not allowed';
+            return new JsonResponse($responseBody, 405);
         }
 
-        return new JsonResponse(['mesage' => 'unknown error, please contact support'], 500);
+        $responseBody['message'] = 'unknown error, please contact support';
+        return new JsonResponse($responseBody, 500);
+    }
+
+    public function isDebugMode()
+    {
+        return $this->getParameter('kernel.debug');
     }
 }

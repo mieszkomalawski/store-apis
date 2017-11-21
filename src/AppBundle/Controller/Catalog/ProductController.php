@@ -3,8 +3,8 @@
 
 namespace AppBundle\Controller\Catalog;
 
-use AppBundle\Command\CreateProductCommand;
-use AppBundle\Command\UpdateProductCommand;
+use AppBundle\Model\CreateProductCommand;
+use AppBundle\Model\UpdateProductCommand;
 use AppBundle\Form\CreateProductType;
 use AppBundle\Form\UpdateProductType;
 use AppBundle\Repository\ProductRepository;
@@ -274,7 +274,13 @@ class ProductController extends FOSRestController
      */
     public function putProductAction(Product $product, Request $request)
     {
+        /**
+         * I'm using command object to bypass symfony validation philosophy,
+         * I prefer to have always valid entities
+         */
         $updateProductCommand = new UpdateProductCommand();
+        $updateProductCommand->setPrice($product->getPriceDecimal());
+        $updateProductCommand->setName($product->getName());
         $form = $this->createForm(UpdateProductType::class, $updateProductCommand);
 
         $form->submit($request->request->all());
