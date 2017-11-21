@@ -101,7 +101,10 @@ class Cart extends AggregateRoot
      */
     public function getProducts(): ArrayCollection
     {
-        return $this->products;
+        /**
+         * We don't want someone to bypass aggregate (cart)
+         */
+        return clone $this->products;
     }
 
     /**

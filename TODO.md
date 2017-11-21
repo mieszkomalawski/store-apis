@@ -1,4 +1,2 @@
-- Application layer in domain
 - HATEOAS
-- uprościć kod domenowy
 - travis

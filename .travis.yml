@@ -1,0 +1,51 @@
+# Project language
+language: php
+
+# Allows use container-based infrastructure
+sudo: false
+
+# Start mysql service
+services:
+  - mysql
+
+# Cache composer packages so "composer install" is faster
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+# Matrix to test in every php version
+matrix:
+  # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
+  fast_finish: true
+  include:
+    - php: 7.1
+
+# Define an environment variable
+env:
+  - SYMFONY_VERSION="3.0.*" DB=mysql
+
+# Update composer
+before-install:
+  - composer self-update
+
+# Install composer dependencies,
+# Create database, schema and fixtures
+install:
+  - composer install
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - php bin/console doctrine:migrations:migrate --env=dev
+  - php bin/console doctrine:fixtures:load -n --env=dev
+
+
+before_script:
+  - mysql -u root -e 'CREATE DATABASE symfony;
+  - php bin/console server:start 127.0.0.1:8003
+  - dredd --language=vendor/bin/dredd-hooks-php --hookfiles=./hooks*.php
+
+# Run script
+script:
+  - vendor/bin/phpspec run
+
+# After a build, send email notification with the build results
+notifications:
+  email: mieszkomalawski@gmail.com
