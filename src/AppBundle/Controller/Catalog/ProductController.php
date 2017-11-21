@@ -208,7 +208,7 @@ class ProductController extends FOSRestController
             $product = new Product(
                 $uuid,
                 $createProductCommand->getName(),
-                MoneyFactory::USD($createProductCommand->getPrice() * 100)
+                MoneyFactory::USD($createProductCommand->getPrice())
             );
             $this->getDoctrine()->getManager()->persist($product);
             $this->getDoctrine()->getManager()->flush();
