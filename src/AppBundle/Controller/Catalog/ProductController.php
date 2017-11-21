@@ -317,12 +317,4 @@ class ProductController extends FOSRestController
 
         return new JsonResponse([], 200);
     }
-
-    /**
-     * @return ObjectRepository
-     */
-    private function getProductRepository(): ObjectRepository
-    {
-        return $this->getDoctrine()->getRepository(Product::class);
-    }
 }

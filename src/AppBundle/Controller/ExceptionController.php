@@ -21,12 +21,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Swagger\Annotations as SWG;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class ExceptionController extends FOSRestController
 {
-    public function showAction()
+    /**
+     * @param \Exception $exception
+     * @return JsonResponse
+     */
+    public function showAction(\Exception $exception)
     {
-        //@todo custom exception handling
-        return new JsonResponse([]);
+        if($exception instanceof NotFoundHttpException){
+            return new JsonResponse(['mesage' => 'route not found'], 404);
+        }
+        if($exception instanceof MethodNotAllowedHttpException){
+            return new JsonResponse(['mesage' => 'method not allowed'], 405);
+        }
+
+        return new JsonResponse(['mesage' => 'unknown error, please contact support'], 500);
     }
 }

@@ -57,9 +57,7 @@ class CartController extends FOSRestController
     public function postCartAction(Request $request)
     {
         $id = Uuid::uuid4();
-        $cart = Cart::create(
-            $id
-        );
+        $cart = Cart::create($id);
         $this->cartAggregateRepository->saveAggregateRoot($cart);
 
         return new JsonResponse(
@@ -146,7 +144,7 @@ class CartController extends FOSRestController
         /** @var Cart $cart */
         $cartAggregate = $this->cartAggregateRepository->getAggregateRoot((string)$cart);
         if (!$cartAggregate instanceof Cart) {
-            return new JsonResponse(['message' => 'Cart not found by id: ' . $cart], 404);
+            return $this->getCartNotFoundResponse($cart);
         }
         $products = $cartAggregate->getProducts()->map(
             function (UuidInterface $productId) use ($productRepository) {
@@ -213,7 +211,7 @@ class CartController extends FOSRestController
     {
         $cartAggregate = $this->cartAggregateRepository->getAggregateRoot($cart);
         if (!$cartAggregate instanceof Cart) {
-            return new JsonResponse(['message' => 'Cart not found by id: ' . $cart], 404);
+            return $this->getCartNotFoundResponse($cart);
         }
 
         $form = $this->createForm(AddProductToCartType::class);
@@ -279,12 +277,21 @@ class CartController extends FOSRestController
         /** @var Cart $cart */
         $cartAggregate = $this->cartAggregateRepository->getAggregateRoot((string)$cart);
         if (!$cartAggregate instanceof Cart) {
-            return new JsonResponse(['message' => 'Cart not found by id: ' . $cart], 404);
+            return $this->getCartNotFoundResponse($cart);
         }
 
         $cartAggregate->remove($product->getId());
         $this->cartAggregateRepository->saveAggregateRoot($cartAggregate);
 
         return new JsonResponse([], 200);
+    }
+
+    /**
+     * @param $cart
+     * @return JsonResponse
+     */
+    private function getCartNotFoundResponse($cart): JsonResponse
+    {
+        return new JsonResponse(['message' => 'Cart not found by id: ' . $cart], 404);
     }
 }

@@ -1,8 +1,4 @@
 - Custom 500 exceptions - exception controller
-- Custom 400 exceptions
-- product repository DI
-- upiekszyć swaggera
-- czyścić dane po testach dredd
 - uniemożliwić pusty name/price przy update productus
 - stronicowanie w headerach a nie body
 - Application layer in domain

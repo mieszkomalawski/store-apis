@@ -110,7 +110,7 @@ fos_rest:
 
     exception:
       enabled: true
-      #exception_controller: 'AppBundle\Controller\ExceptionController::showAction'
+      exception_controller: 'AppBundle\Controller\ExceptionController::showAction'
       codes:
         Symfony\Component\Routing\Exception\ResourceNotFoundException: 404
         Symfony\Component\Routing\Exception\RouteNotFoundException: 404
