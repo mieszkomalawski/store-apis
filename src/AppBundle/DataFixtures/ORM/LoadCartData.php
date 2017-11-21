@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LoadProductData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+class LoadCartData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
     /**
      * @var Container
@@ -29,22 +29,18 @@ class LoadProductData implements FixtureInterface, ContainerAwareInterface, Orde
 
     public function load(ObjectManager $manager)
     {
-        //hard coded for test purposes
-        $fallout = new Product(Uuid::fromString('162e2dc2-6761-4a4e-9203-05f367d7ccd9'), 'Fallout', Money::USD(199));
-        $manager->persist($fallout);
-        $dontStarve = new Product(Uuid::uuid4(), 'Don’t Starve', Money::USD(299));
-        $manager->persist($dontStarve);
-        $baldur = new Product(Uuid::uuid4(), 'Baldur’s Gate', Money::USD(399));
-        $manager->persist($baldur);
-        $icewind = new Product(Uuid::uuid4(), 'Icewind Dale', Money::USD(499));
-        $manager->persist($icewind);
-        $blood = new Product(Uuid::uuid4(), 'Bloodborne', Money::USD(599));
-        $manager->persist($blood);
-        $manager->flush();
+        // hard coded uuid for test purposes
+        $cart = Cart::create(Uuid::fromString('3d73fbef-7998-4836-a521-004fdfbb0241'));
+        $cart->add(Uuid::fromString('162e2dc2-6761-4a4e-9203-05f367d7ccd9'), 1);
+
+        /** @var AggregateRepository $cartAggregateRepository */
+        $cartAggregateRepository = $this->container->get('cart_aggregate_repository');
+        $cartAggregateRepository->saveAggregateRoot($cart);
+
     }
 
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }

@@ -70,11 +70,6 @@ doctrine:
                 type: yml
                 dir:  %kernel.root_dir%/../src/AppBundle/Resources/config/doctrine_catalog
                 prefix: Store\Catalog
-              Checkout:
-                is_bundle: false
-                type: yml
-                dir: %kernel.root_dir%/../src/AppBundle/Resources/config/doctrine_checkout
-                prefix: Store\Checkout
               Money:
                 is_bundle: false
                 type: yml

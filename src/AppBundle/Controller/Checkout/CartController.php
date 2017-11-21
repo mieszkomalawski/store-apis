@@ -79,7 +79,7 @@ class CartController extends FOSRestController
      *     consumes={"application/json"},
      *       @SWG\Parameter(
      *          in="path",
-     *          enum={"0ecdc635-bb14-4ffa-8826-756d9cc3c73d"},
+     *          enum={"3d73fbef-7998-4836-a521-004fdfbb0241"},
      *          name="cartId",
      *          required=true,
      *          type="string"
@@ -118,7 +118,7 @@ class CartController extends FOSRestController
      *
      * @SWG\Definition(
      *     type="object",
-     *     required={"id", "name", "price", "quantity"},
+     *     required={"id", "name", "price"},
      *     definition="ProductCartItem",
      *               @SWG\Property(
      *                  property="id",
@@ -130,12 +130,6 @@ class CartController extends FOSRestController
      *                  type="string",
      *                  example="foo"
      *              ),
-     *              @SWG\Property(
-     *                  property="quantity",
-     *                  type="integer",
-     *                  example="1",
-     *                   minimum=1
-     *              ),
      *               @SWG\Property(
      *                  property="price",
      *                  type="number",
@@ -144,21 +138,25 @@ class CartController extends FOSRestController
      *              )
      * )
      *
-     * @param Request $request
+     * @param string $cart
      * @return Response
      */
     public function getCartAction($cart)
     {
         $productRepository = $this->getDoctrine()->getRepository(Product::class);
+
         /** @var Cart $cart */
-        $cart = $this->cartAggregateRepository->getAggregateRoot((string)$cart);
-        $products = $cart->getProducts()->map(function (UuidInterface $productId)use($productRepository) {
+        $cartAggregate = $this->cartAggregateRepository->getAggregateRoot((string)$cart);
+        if(!$cartAggregate instanceof Cart){
+            return new JsonResponse(['message' => 'Cart not found by id: '. $cart], 404);
+        }
+        $products = $cartAggregate->getProducts()->map(function (UuidInterface $productId)use($productRepository) {
             return $productRepository->find($productId);
         });
         $view = $this->view([
-            'id' => $cart->getId()->toString(),
+            'id' => $cartAggregate->getId()->toString(),
             'products' => $products,
-            'total' => $cart->getTotal($productRepository)->getAmount() / 100
+            'total' => $cartAggregate->getTotal($productRepository)->getAmount() / 100
         ], 200);
 
         return $this->handleView($view);
@@ -173,7 +171,7 @@ class CartController extends FOSRestController
      *     consumes={"application/json"},
      *       @SWG\Parameter(
      *          in="path",
-     *          enum={"0ecdc635-bb14-4ffa-8826-756d9cc3c73d"},
+     *          enum={"3d73fbef-7998-4836-a521-004fdfbb0241"},
      *          name="cartId",
      *          required=true,
      *          type="string"
@@ -216,13 +214,16 @@ class CartController extends FOSRestController
      *
      * )
      *
-     * @param Cart $cart
+     * @param string $cart
      * @param Request $request
      * @return Response
      */
     public function postCartProductAction($cart, Request $request)
     {
-        $cart = $this->cartAggregateRepository->getAggregateRoot($cart);
+        $cartAggregate = $this->cartAggregateRepository->getAggregateRoot($cart);
+        if(!$cartAggregate instanceof Cart){
+            return new JsonResponse(['message' => 'Cart not found by id: '. $cart], 404);
+        }
 
         $form = $this->createForm(AddProductToCartType::class);
 
@@ -232,13 +233,13 @@ class CartController extends FOSRestController
             $data = $form->getData();
             /** @var Product $product */
             $product = $data['product'];
-            $cart->add($product->getId(), $data['quantity']);
-            $this->cartAggregateRepository->saveAggregateRoot($cart);
+            $cartAggregate->add($product->getId(), $data['quantity']);
+            $this->cartAggregateRepository->saveAggregateRoot($cartAggregate);
 
             return new JsonResponse(
                 [],
                 201,
-                ['Location' => $this->generateUrl('get_cart', ['cart' => $cart->getId()])]
+                ['Location' => $this->generateUrl('get_cart', ['cart' => $cartAggregate->getId()])]
             );
         }
 
@@ -256,14 +257,14 @@ class CartController extends FOSRestController
      *     consumes={"application/json"},
      *       @SWG\Parameter(
      *          in="path",
-     *          enum={"0ecdc635-bb14-4ffa-8826-756d9cc3c73d"},
+     *          enum={"3d73fbef-7998-4836-a521-004fdfbb0241"},
      *          name="cartId",
      *          required=true,
      *          type="string"
      *      ),
      *     @SWG\Parameter(
      *          in="path",
-     *          enum={"7dbaf7f6-c415-42cf-85c2-9a8fababcba6"},
+     *          enum={"162e2dc2-6761-4a4e-9203-05f367d7ccd9"},
      *          name="productId",
      *          required=true,
      *          type="string"
@@ -285,10 +286,13 @@ class CartController extends FOSRestController
     public function deleteCartProductAction($cart, Product $product)
     {
         /** @var Cart $cart */
-        $cart = $this->cartAggregateRepository->getAggregateRoot((string)$cart);
+        $cartAggregate = $this->cartAggregateRepository->getAggregateRoot((string)$cart);
+        if(!$cartAggregate instanceof Cart){
+            return new JsonResponse(['message' => 'Cart not found by id: '. $cart], 404);
+        }
 
-        $cart->remove($product->getId());
-        $this->cartAggregateRepository->saveAggregateRoot($cart);
+        $cartAggregate->remove($product->getId());
+        $this->cartAggregateRepository->saveAggregateRoot($cartAggregate);
 
         return new JsonResponse([], 200);
     }

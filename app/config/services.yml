@@ -54,6 +54,7 @@ services:
 
     wrapped_connection:
       class: Doctrine\DBAL\Driver\Connection
+      public: true
       factory: ['@doctrine.dbal.default_connection', 'getWrappedConnection']
 
     mysql_event_store:
@@ -85,6 +86,7 @@ services:
 
     cart_aggregate_repository:
       class: Prooph\EventSourcing\Aggregate\AggregateRepository
+      public: true
       arguments:
         - '@mysql_event_store'
         - '@Prooph\EventSourcing\Aggregate\AggregateType'

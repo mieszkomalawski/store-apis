@@ -117,7 +117,7 @@ class ProductController extends FOSRestController
      *     produces={"application/json"},
      *  @SWG\Parameter(
      *     in="path",
-     *     enum={"66e3a13c-d1a7-4bc0-9732-b99c184602e7"},
+     *     enum={"162e2dc2-6761-4a4e-9203-05f367d7ccd9"},
      *     name="productId",
      *     required=true,
      *     type="string"
@@ -234,7 +234,7 @@ class ProductController extends FOSRestController
      *     consumes={"application/json"},
      *  @SWG\Parameter(
      *     in="path",
-     *     enum={"66e3a13c-d1a7-4bc0-9732-b99c184602e7"},
+     *     enum={"162e2dc2-6761-4a4e-9203-05f367d7ccd9"},
      *     name="productId",
      *     required=true,
      *     type="string"

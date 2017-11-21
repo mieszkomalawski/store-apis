@@ -13,6 +13,10 @@ run dredd tests:
 
 Documentation: Swagger 
 
+generate documentation:
+
+```php bin/console swagger:generate ```
+
 ### Architecture
 
 DDD - domain login in DomainModel dir. Overkill for this small project but might be usefull in real life large project with

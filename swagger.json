@@ -79,7 +79,7 @@
                         "required": true,
                         "type": "string",
                         "enum": [
-                            "66e3a13c-d1a7-4bc0-9732-b99c184602e7"
+                            "162e2dc2-6761-4a4e-9203-05f367d7ccd9"
                         ]
                     }
                 ],
@@ -106,7 +106,7 @@
                         "required": true,
                         "type": "string",
                         "enum": [
-                            "66e3a13c-d1a7-4bc0-9732-b99c184602e7"
+                            "162e2dc2-6761-4a4e-9203-05f367d7ccd9"
                         ]
                     },
                     {
@@ -163,7 +163,7 @@
                         "required": true,
                         "type": "string",
                         "enum": [
-                            "0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
+                            "3d73fbef-7998-4836-a521-004fdfbb0241"
                         ]
                     }
                 ],
@@ -192,7 +192,7 @@
                         "required": true,
                         "type": "string",
                         "enum": [
-                            "0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
+                            "3d73fbef-7998-4836-a521-004fdfbb0241"
                         ]
                     },
                     {
@@ -230,7 +230,7 @@
                         "required": true,
                         "type": "string",
                         "enum": [
-                            "0ecdc635-bb14-4ffa-8826-756d9cc3c73d"
+                            "3d73fbef-7998-4836-a521-004fdfbb0241"
                         ]
                     },
                     {
@@ -239,7 +239,7 @@
                         "required": true,
                         "type": "string",
                         "enum": [
-                            "7dbaf7f6-c415-42cf-85c2-9a8fababcba6"
+                            "162e2dc2-6761-4a4e-9203-05f367d7ccd9"
                         ]
                     }
                 ],
@@ -343,8 +343,7 @@
             "required": [
                 "id",
                 "name",
-                "price",
-                "quantity"
+                "price"
             ],
             "properties": {
                 "id": {
@@ -354,11 +353,6 @@
                 "name": {
                     "type": "string",
                     "example": "foo"
-                },
-                "quantity": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "example": "1"
                 },
                 "price": {
                     "type": "number",
