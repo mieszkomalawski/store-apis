@@ -41,7 +41,7 @@ class Cart extends AggregateRoot
 
     protected function aggregateId(): string
     {
-        if(!$this->id instanceof Uuid){
+        if (!$this->id instanceof Uuid) {
             return $this->id;
         }
         return $this->id->toString();
@@ -52,7 +52,7 @@ class Cart extends AggregateRoot
      */
     public function getId(): UuidInterface
     {
-        if(!$this->id instanceof Uuid){
+        if (!$this->id instanceof Uuid) {
             return Uuid::fromString($this->id);
         }
         return $this->id;
@@ -62,26 +62,15 @@ class Cart extends AggregateRoot
      * @param UuidInterface $productId
      * @param int $quantity
      */
-    public function add(UuidInterface $productId, int $quantity)
+    public function add(UuidInterface $productId)
     {
-        $hasThisProduct = $this->findItemById($productId);
-        if (!$hasThisProduct->isEmpty()
-        ) {
-            $this->recordThat(ProductAdded::create(
-                $this->id,
-                $productId,
-                $quantity
-            ));
-        } else {
-            if (count($this->products) >= self::ITEM_LIMIT) {
-                throw new \InvalidArgumentException('Cannot have more than 3 products in cart');
-            }
-            $this->recordThat(ProductAdded::create(
-                $this->id,
-                $productId,
-                $quantity
-            ));
+        if (count($this->products) >= self::ITEM_LIMIT) {
+            throw new \InvalidArgumentException('Cannot have more than 3 products in cart');
         }
+        $this->recordThat(ProductAdded::create(
+            $this->id,
+            $productId
+        ));
     }
 
     public function remove(UuidInterface $productId): void
@@ -110,12 +99,13 @@ class Cart extends AggregateRoot
      */
     public function getTotal(AvailableProductCollection $availableProductCollection): Money
     {
-        return array_reduce($this->products->toArray(), function ($carry, CartItem $cartItem)use($availableProductCollection) {
-            $product = $availableProductCollection->getById($cartItem->getProductId());
-            $price = $product->getPrice();
-            /** @var Money $carry */
-            return $carry->add($price);
-        }, Money::USD(0));
+        return array_reduce($this->products->toArray(),
+            function ($carry, UuidInterface $cartItem) use ($availableProductCollection) {
+                $product = $availableProductCollection->getById($cartItem);
+                $price = $product->getPrice();
+                /** @var Money $carry */
+                return $carry->add($price);
+            }, Money::USD(0));
     }
 
     /**
@@ -124,23 +114,18 @@ class Cart extends AggregateRoot
      */
     private function findItemById(UuidInterface $productId): ArrayCollection
     {
-        return $this->products->filter(function (CartItem $cartItem) use ($productId) {
-            return (string)$cartItem->getProductId() === (string)$productId;
+        return $this->products->filter(function (UuidInterface $cartItem) use ($productId) {
+            return (string)$cartItem === (string)$productId;
         });
-    }
-
-    private function increaseQuantity(CartItem $cartItem): void
-    {
-        $cartItem->increaseQuantity(1);
     }
 
     /**
      * @param UuidInterface $productId
      * @param int $quantity
      */
-    private function addProduct(UuidInterface $productId, int $quantity): void
+    private function addProduct(UuidInterface $productId): void
     {
-        $this->products->add(new CartItem($productId, $quantity));
+        $this->products->add($productId);
     }
 
     protected function apply(AggregateChanged $event): void
@@ -154,13 +139,7 @@ class Cart extends AggregateRoot
             case ProductAdded::class:
                 /** @var ProductAdded $event */
                 $id = $event->getProductId();
-                $hasThisProduct = $this->findItemById($id);
-                if (!$hasThisProduct->isEmpty()
-                ) {
-                    $this->increaseQuantity($hasThisProduct->first());
-                } else {
-                    $this->addProduct($id, $event->getQuantity());
-                }
+                $this->addProduct($id);
                 break;
             case ProductRemoved::class:
                 /** @var ProductRemoved $event */

@@ -9,12 +9,13 @@ use Store\Catalog\Product;
 use Store\Checkout\Cart;
 use PhpSpec\ObjectBehavior;
 use Store\Checkout\CartItem;
+use Store\Checkout\InMemoryAvailableProductCollection;
 
 class CartSpec extends ObjectBehavior
 {
     public function let()
     {
-        $this->beConstructedWith(Uuid::uuid4());
+        $this->beConstructedThrough('create', [Uuid::uuid4()]);
     }
     public function it_is_initializable()
     {
@@ -28,22 +29,7 @@ class CartSpec extends ObjectBehavior
             'testProduct',
             Money::USD(100)
         );
-        $this->add($product, 1);
-    }
-
-    public function it_should_increase_quantity_when_adding_same_product()
-    {
-        $product = new Product(
-            Uuid::uuid4(),
-            'testProduct',
-            Money::USD(100)
-        );
-        $this->add($product, 1);
-        $this->add($product, 1);
-
-        $products = $this->getProducts();
-        $products->count()->shouldBeLike(1);
-        $products->first()->getName()->shouldBeLike('testProduct');
+        $this->add($product->getId());
     }
 
     public function it_should_remove_product()
@@ -53,7 +39,7 @@ class CartSpec extends ObjectBehavior
             'testProduct',
             Money::USD(100)
         );
-        $this->add($product, 1);
+        $this->add($product->getId());
         $this->remove($product->getId());
 
         $this->getProducts()->shouldBeLike(new ArrayCollection());
@@ -66,7 +52,7 @@ class CartSpec extends ObjectBehavior
             'testProduct',
             Money::USD(100)
         );
-        $this->add($product, 1);
+        $this->add($product->getId());
         $uuid = Uuid::uuid4();
 
         $this->shouldThrow(new \InvalidArgumentException('Cannot remove product by id '. (string)$uuid . ', product not found'))
@@ -80,19 +66,19 @@ class CartSpec extends ObjectBehavior
             'testProduct',
             Money::USD(100)
         );
-        $this->add($product1, 1);
+        $this->add($product1->getId());
         $product2 = new Product(
             Uuid::uuid4(),
             'testProduct2',
             Money::USD(200)
         );
-        $this->add($product2, 1);
+        $this->add($product2->getId());
         $product3 = new Product(
             Uuid::uuid4(),
             'testProduct3',
             Money::USD(100)
         );
-        $this->add($product3, 1);
+        $this->add($product3->getId());
 
         $product4 = new Product(
             Uuid::uuid4(),
@@ -101,7 +87,7 @@ class CartSpec extends ObjectBehavior
         );
 
         $this->shouldThrow(new \InvalidArgumentException('Cannot have more than 3 products in cart'))
-            ->during('add', [$product4, 1]);
+            ->during('add', [$product4->getId()]);
     }
 
     public function it_should_return_total_price()
@@ -111,14 +97,14 @@ class CartSpec extends ObjectBehavior
             'testProduct',
             Money::USD(99, 99)
         );
-        $this->add($product1, 1);
+        $this->add($product1->getId());
         $product2 = new Product(
             Uuid::uuid4(),
             'testProduct2',
             Money::USD(220)
         );
-        $this->add($product2, 2);
+        $this->add($product2->getId());
 
-        $this->getTotal()->shouldBeLike(Money::USD(440 + 99, 99));
+        $this->getTotal(new InMemoryAvailableProductCollection([$product1, $product2]))->shouldBeLike(Money::USD(220 + 99, 99));
     }
 }

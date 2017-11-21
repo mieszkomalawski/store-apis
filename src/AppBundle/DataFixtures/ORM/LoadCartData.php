@@ -31,7 +31,7 @@ class LoadCartData implements FixtureInterface, ContainerAwareInterface, Ordered
     {
         // hard coded uuid for test purposes
         $cart = Cart::create(Uuid::fromString('3d73fbef-7998-4836-a521-004fdfbb0241'));
-        $cart->add(Uuid::fromString('162e2dc2-6761-4a4e-9203-05f367d7ccd9'), 1);
+        $cart->add(Uuid::fromString('162e2dc2-6761-4a4e-9203-05f367d7ccd9'));
 
         /** @var AggregateRepository $cartAggregateRepository */
         $cartAggregateRepository = $this->container->get('cart_aggregate_repository');

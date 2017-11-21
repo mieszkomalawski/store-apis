@@ -12,14 +12,12 @@ class ProductAdded extends AggregateChanged
 {
     public static function create(
         UuidInterface $cartId,
-        UuidInterface $productId,
-        int $quantity
+        UuidInterface $productId
     ) {
         return static::occur(
             (string)$cartId,
             [
-                'productId' => (string)$productId,
-                'quantity' => $quantity
+                'productId' => (string)$productId
             ]
         );
     }
@@ -32,10 +30,5 @@ class ProductAdded extends AggregateChanged
     public function getProductId(): UuidInterface
     {
         return Uuid::fromString($this->payload['productId']);
-    }
-
-    public function getQuantity(): int
-    {
-        return $this->payload['quantity'];
     }
 }

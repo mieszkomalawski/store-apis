@@ -36,4 +36,4 @@ several bussiness rules.
 ### Nice to have
 
 - Security: JWT
-- Cart: event sourcing
+- [x] Cart: event sourcing
