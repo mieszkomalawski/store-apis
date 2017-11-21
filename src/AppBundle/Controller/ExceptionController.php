@@ -27,6 +27,7 @@ class ExceptionController extends FOSRestController
 {
     public function showAction()
     {
+        //@todo custom exception handling
         return new JsonResponse([]);
-   }
+    }
 }

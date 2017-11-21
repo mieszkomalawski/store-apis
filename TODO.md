@@ -1,12 +1,12 @@
-- Normalize exception handler: https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1717
-- Custom 500 exceptions
-- Application layer in domain
-- simplify validation
-- product repository DI
-- stronicowanie w headerach a nie body
-- pozbyć sie persistent collection z cart
+- Custom 500 exceptions - exception controller
+- Custom 400 exceptions
 - pozbyc się dzielenia i mnożenia przez 100
-- uniemożliwić pusty name/price przy update productu
 - upewnieć się co do stabilności testów po wyczyszceniu bazy
+- product repository DI
+- pozbyć sie persistent collection z cart
 - upiekszyć swaggera
 - czyścić dane po testach dredd
+- uniemożliwić pusty name/price przy update productu
+- simplify validation
+- stronicowanie w headerach a nie body
+- Application layer in domain
