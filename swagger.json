@@ -364,18 +364,12 @@
         },
         "AddProductToCart": {
             "required": [
-                "product",
-                "quantity"
+                "product"
             ],
             "properties": {
                 "product": {
                     "type": "string",
                     "example": "7dbaf7f6-c415-42cf-85c2-9a8fababcba6"
-                },
-                "quantity": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "example": 1
                 }
             },
             "type": "object"

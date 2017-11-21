@@ -29,14 +29,6 @@ class AddProductToCartType extends AbstractType
     {
         $builder
             ->add('product', EntityType::class, ['class' => Product::class])
-            ->add('quantity', NumberType::class, [
-                'constraints' => [
-                    new NotBlank(),
-                    new Range([
-                        'min' => 1
-                    ])
-                ]
-            ])
             ->getForm();
     }
 }

@@ -87,11 +87,12 @@ class Cart extends AggregateRoot
         }
     }
 
-    public function getProducts(): iterable
+    /**
+     * @return ArrayCollection
+     */
+    public function getProducts(): ArrayCollection
     {
-        return $this->products->map(function (CartItem $cartItem) {
-            return $cartItem->getProductId();
-        });
+        return $this->products;
     }
 
     /**

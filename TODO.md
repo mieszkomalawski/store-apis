@@ -3,7 +3,6 @@
 - pozbyc się dzielenia i mnożenia przez 100
 - upewnieć się co do stabilności testów po wyczyszceniu bazy
 - product repository DI
-- pozbyć sie persistent collection z cart
 - upiekszyć swaggera
 - czyścić dane po testach dredd
 - uniemożliwić pusty name/price przy update productu

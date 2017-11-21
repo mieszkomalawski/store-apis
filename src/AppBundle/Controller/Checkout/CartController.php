@@ -150,12 +150,14 @@ class CartController extends FOSRestController
         if (!$cartAggregate instanceof Cart) {
             return new JsonResponse(['message' => 'Cart not found by id: ' . $cart], 404);
         }
-        $products = array_map(function (UuidInterface $productId) use ($productRepository) {
-            return $productRepository->find($productId);
-        }, $cartAggregate->getProducts());
+        $products = $cartAggregate->getProducts()->map(
+            function (UuidInterface $productId) use ($productRepository) {
+                return $productRepository->find($productId);
+            }
+        );
         $view = $this->view([
             'id' => $cartAggregate->getId()->toString(),
-            'products' => $products,
+            'products' => array_values($products->toArray()),
             'total' => $cartAggregate->getTotal($productRepository)->getAmount() / 100
         ], 200);
 
@@ -196,19 +198,13 @@ class CartController extends FOSRestController
      *
      * @SWG\Definition(
      *     type="object",
-     *     required={"product", "quantity"},
+     *     required={"product"},
      *     definition="AddProductToCart",
      *
      *               @SWG\Property(
      *                  property="product",
      *                  type="string",
      *                  example="7dbaf7f6-c415-42cf-85c2-9a8fababcba6"
-     *              ),
-     *               @SWG\Property(
-     *                  property="quantity",
-     *                  type="integer",
-     *                  example=1,
-     *                  minimum=1
      *              )
      *
      *
