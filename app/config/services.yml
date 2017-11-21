@@ -45,3 +45,49 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    fqn_message_factory:
+      class: Prooph\Common\Messaging\FQCNMessageFactory
+
+    mysql_single_stream_strategy:
+      class: Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSimpleStreamStrategy
+
+    wrapped_connection:
+      class: Doctrine\DBAL\Driver\Connection
+      factory: ['@doctrine.dbal.default_connection', 'getWrappedConnection']
+
+    mysql_event_store:
+      class: Prooph\EventStore\Pdo\MySqlEventStore
+      arguments:
+        - '@fqn_message_factory'
+        - '@wrapped_connection'
+        - '@mysql_single_stream_strategy'
+
+    Prooph\EventStore\StreamName:
+      arguments:
+        - 'event_stream'
+
+    Prooph\EventStore\Stream:
+      autowire: true
+      arguments:
+        - '@Prooph\EventStore\StreamName'
+
+    Prooph\EventSourcing\Aggregate\AggregateType:
+      factory: ['Prooph\EventSourcing\Aggregate\AggregateType', 'fromAggregateRootClass']
+      arguments:
+        - 'Store\Checkout\Cart'
+
+    aggregate_translator:
+      class: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
+
+    cart_aggregate_repository:
+      class: Prooph\EventSourcing\Aggregate\AggregateRepository
+      public: true
+      arguments:
+        - '@mysql_event_store'
+        - '@Prooph\EventSourcing\Aggregate\AggregateType'
+        - '@aggregate_translator'
+
+
+
+
