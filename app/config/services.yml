@@ -58,10 +58,12 @@ services:
 
     mysql_event_store:
       class: Prooph\EventStore\Pdo\MySqlEventStore
+      factory: ['AppBundle\EventStoreFactory', 'create']
       arguments:
         - '@fqn_message_factory'
         - '@wrapped_connection'
         - '@mysql_single_stream_strategy'
+        - '@Prooph\EventStore\StreamName'
 
     Prooph\EventStore\StreamName:
       arguments:
@@ -69,6 +71,7 @@ services:
 
     Prooph\EventStore\Stream:
       autowire: true
+      factory:
       arguments:
         - '@Prooph\EventStore\StreamName'
 
@@ -82,12 +85,22 @@ services:
 
     cart_aggregate_repository:
       class: Prooph\EventSourcing\Aggregate\AggregateRepository
-      public: true
       arguments:
         - '@mysql_event_store'
         - '@Prooph\EventSourcing\Aggregate\AggregateType'
         - '@aggregate_translator'
 
+    AppBundle\Controller\Checkout\CartController:
+      public: true
+      arguments:
+        - '@cart_aggregate_repository'
+
+    #mysql_projection_manager:
+    #  class: Prooph\EventStore\Pdo\Projection\MySqlProjectionManager
+    #  public: true
+    #  arguments:
+    #    - '@mysql_event_store'
+    #    - '@wrapped_connection'
 
 
 

@@ -8,8 +8,9 @@ use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\FOSRestController;
-use Money\Money;
+use Prooph\EventSourcing\Aggregate\AggregateRepository;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Store\Catalog\Product;
 use Store\Checkout\Cart;
@@ -20,6 +21,20 @@ use Swagger\Annotations as SWG;
 
 class CartController extends FOSRestController
 {
+    /**
+     * @var AggregateRepository
+     */
+    private $cartAggregateRepository;
+
+    /**
+     * CartController constructor.
+     */
+    public function __construct(AggregateRepository $cartAggregateRepository)
+    {
+        $this->cartAggregateRepository = $cartAggregateRepository;
+    }
+
+
     /**
      *
      *  @SWG\Post(
@@ -42,10 +57,11 @@ class CartController extends FOSRestController
     public function postCartAction(Request $request)
     {
         $id = Uuid::uuid4();
-        $cart = new Cart($id);
-
-        $this->getDoctrine()->getManager()->persist($cart);
-        $this->getDoctrine()->getManager()->flush();
+        $cart = Cart::create(
+            $id,
+            $this->getDoctrine()->getRepository(Product::class)
+        );
+        $this->cartAggregateRepository->saveAggregateRoot($cart);
 
         return new JsonResponse(
             [],
@@ -131,12 +147,18 @@ class CartController extends FOSRestController
      * @param Request $request
      * @return Response
      */
-    public function getCartAction(Cart $cart)
+    public function getCartAction($cart)
     {
+        $productRepository = $this->getDoctrine()->getRepository(Product::class);
+        /** @var Cart $cart */
+        $cart = $this->cartAggregateRepository->getAggregateRoot((string)$cart);
+        $products = $cart->getProducts()->map(function (UuidInterface $productId)use($productRepository) {
+            return $productRepository->find($productId);
+        });
         $view = $this->view([
             'id' => $cart->getId()->toString(),
-            'products' => $cart->getProducts(),
-            'total' => $cart->getTotal()->getAmount() / 100
+            'products' => $products,
+            'total' => $cart->getTotal($productRepository)->getAmount() / 100
         ], 200);
 
         return $this->handleView($view);
@@ -198,17 +220,20 @@ class CartController extends FOSRestController
      * @param Request $request
      * @return Response
      */
-    public function postCartProductAction(Cart $cart, Request $request)
+    public function postCartProductAction($cart, Request $request)
     {
+        $cart = $this->cartAggregateRepository->getAggregateRoot($cart);
+
         $form = $this->createForm(AddProductToCartType::class);
 
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $data = $form->getData();
-            $cart->add($data['product'], $data['quantity']);
-            $this->getDoctrine()->getManager()->persist($cart);
-            $this->getDoctrine()->getManager()->flush();
+            /** @var Product $product */
+            $product = $data['product'];
+            $cart->add($product->getId(), $data['quantity']);
+            $this->cartAggregateRepository->saveAggregateRoot($cart);
 
             return new JsonResponse(
                 [],
@@ -253,15 +278,17 @@ class CartController extends FOSRestController
      *  )
      * )
      *
-     * @param Cart $cart
+     * @param string $cart
      * @param Product $product
      * @return Response
      */
-    public function deleteCartProductAction(Cart $cart, Product $product)
+    public function deleteCartProductAction($cart, Product $product)
     {
+        /** @var Cart $cart */
+        $cart = $this->cartAggregateRepository->getAggregateRoot((string)$cart);
+
         $cart->remove($product->getId());
-        $this->getDoctrine()->getManager()->persist($cart);
-        $this->getDoctrine()->getManager()->flush();
+        $this->cartAggregateRepository->saveAggregateRoot($cart);
 
         return new JsonResponse([], 200);
     }

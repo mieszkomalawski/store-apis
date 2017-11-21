@@ -13,17 +13,7 @@ class CartItem
     /**
      * @var UuidInterface
      */
-    private $id;
-
-    /**
-     * @var Cart
-     */
-    private $cart;
-
-    /**
-     * @var Product
-     */
-    private $product;
+    private $productId;
 
     /**
      * @var int
@@ -35,23 +25,13 @@ class CartItem
      * @param Product $product
      * @param int $quantity
      */
-    public function __construct(UuidInterface $id, Cart $cart, Product $product, int $quantity)
+    public function __construct(UuidInterface $productId, int $quantity)
     {
-        $this->id = $id;
-        $this->cart = $cart;
         if ($quantity < 1) {
             throw new \InvalidArgumentException('Cannot have negative amount of item');
         }
-        $this->product = $product;
+        $this->productId = $productId;
         $this->quantity = $quantity;
-    }
-
-    /**
-     * @return UuidInterface
-     */
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     /**
@@ -59,20 +39,7 @@ class CartItem
      */
     public function getProductId(): UuidInterface
     {
-        return $this->product->getId();
-    }
-
-    /**
-     * @return Money
-     */
-    public function getPrice(): Money
-    {
-        return $this->product->getPrice()->multiply($this->quantity);
-    }
-
-    public function getName(): string
-    {
-        return $this->product->getName();
+        return $this->productId;
     }
 
     /**

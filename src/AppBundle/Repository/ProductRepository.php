@@ -5,8 +5,11 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Ramsey\Uuid\UuidInterface;
+use Store\Catalog\Product;
+use Store\Checkout\AvailableProductCollection;
 
-class ProductRepository extends EntityRepository
+class ProductRepository extends EntityRepository implements AvailableProductCollection
 {
     const PRODUCT_PER_PAGE = 3;
 
@@ -29,4 +32,15 @@ class ProductRepository extends EntityRepository
 
         return new ProductPagination($hasNextPage, $products);
     }
+
+    /**
+     * @param UuidInterface $id
+     * @return Product
+     */
+    public function getById(UuidInterface $id): Product
+    {
+        return $this->find($id);
+    }
+
+
 }
