@@ -7,6 +7,11 @@ PHPSpec
 [Swagger](https://swagger.io/)  
 [Prooph](http://getprooph.org/)
 
+### Requirments
+
+- php 7.1
+- mysql 5.7
+
 ### Instalation
 
 ```
