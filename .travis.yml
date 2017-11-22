@@ -24,9 +24,7 @@ matrix:
 env:
   - SYMFONY_VERSION="3.0.*" DB=mysql
 
-# Update composer
 before-install:
-  - composer self-update
   - mysql -u root -e 'CREATE DATABASE symfony;'
 
 # Install composer dependencies,
