@@ -30,6 +30,7 @@ before-install:
 # Install composer dependencies,
 # Create database, schema and fixtures
 install:
+  - bash .travis.install-mysql-5.7.sh
   - mysql -u root -e 'CREATE DATABASE symfony;'
   - composer install
   - cp app/config/parameters.yml.dist app/config/parameters.yml
