@@ -36,3 +36,7 @@ Domain logic tests located under src/DomainModel/spec
 Product entity is managed by ORM.
 
 Cart aggregate is event sourced using [Prooph](http://getprooph.org/)
+
+### Security
+
+Security was not part of this task. In real life access to cart should be restricted,  eg. OAUTH server could be used for authentication 
