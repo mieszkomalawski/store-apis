@@ -36,6 +36,7 @@ install:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - php bin/console doctrine:migrations:migrate --env=dev
   - php bin/console doctrine:fixtures:load -n --env=dev
+  - php bin/console doctrine:fixtures:load -n --env=dev
 
 
 before_script:
