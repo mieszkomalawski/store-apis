@@ -43,7 +43,7 @@ class CartController extends FOSRestController
      *     consumes={"application/json"},
      *  @SWG\Response(
      *     response=201,
-     *     description="Cart created",
+     *     description="Cart created, url to created cart representation in Location header",
      *     @SWG\Schema(
      *         type="array",
      *          @SWG\Items()
@@ -184,7 +184,7 @@ class CartController extends FOSRestController
      * ),
      *  @SWG\Response(
      *     response=201,
-     *     description="Product added to cart",
+     *     description="Product added to cart, url to updated cart representation in Location header",
      *     @SWG\Schema(
      *         type="array",
      *         @SWG\Items()
@@ -260,7 +260,7 @@ class CartController extends FOSRestController
      *      ),
      *  @SWG\Response(
      *     response=200,
-     *     description="Product removed from cart",
+     *     description="Product removed from cart, url to updated cart representation in Location header",
      *     @SWG\Schema(
      *         type="array",
      *         @SWG\Items()

@@ -31,7 +31,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
  * )
  * @SWG\Info(
  *     title="some api",
- *      version="0.1"
+ *     version="0.1"
  * )
  * Class ProductController
  * @package AppBundle\Controller\Catalog
@@ -159,7 +159,7 @@ class ProductController extends FOSRestController
      * ),
      *  @SWG\Response(
      *     response=201,
-     *     description="Product created",
+     *     description="Product created, url to created product representation in Location header",
      *     @SWG\Schema(
      *         type="array",
      *          @SWG\Items()
@@ -242,7 +242,7 @@ class ProductController extends FOSRestController
      * ),
      *  @SWG\Response(
      *     response=200,
-     *     description="Product updated",
+     *     description="Product updated, url to updated product representation in Location header",
      *     @SWG\Schema(
      *         type="array",
      *          @SWG\Items()

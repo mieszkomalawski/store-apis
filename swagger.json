@@ -58,7 +58,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Product created",
+                        "description": "Product created, url to created product representation in Location header",
                         "schema": {
                             "type": "array",
                             "items": {}
@@ -120,7 +120,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Product updated",
+                        "description": "Product updated, url to updated product representation in Location header",
                         "schema": {
                             "type": "array",
                             "items": {}
@@ -139,7 +139,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Cart created",
+                        "description": "Cart created, url to created cart representation in Location header",
                         "schema": {
                             "type": "array",
                             "items": {}
@@ -206,7 +206,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Product added to cart",
+                        "description": "Product added to cart, url to updated cart representation in Location header",
                         "schema": {
                             "type": "array",
                             "items": {}
@@ -245,7 +245,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Product removed from cart",
+                        "description": "Product removed from cart, url to updated cart representation in Location header",
                         "schema": {
                             "type": "array",
                             "items": {}

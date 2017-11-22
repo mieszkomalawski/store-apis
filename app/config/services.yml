@@ -33,10 +33,6 @@ services:
         tags:
             - { name: jms_serializer.subscribing_handler }
 
-    AppBundle\Serializer\PaginationHandler:
-        tags:
-            - { name: jms_serializer.subscribing_handler }
-
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
