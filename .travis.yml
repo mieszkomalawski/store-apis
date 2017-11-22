@@ -25,7 +25,7 @@ env:
   - SYMFONY_VERSION="3.0.*" DB=mysql
 
 before-install:
-  - mysql -u root -e 'CREATE DATABASE symfony;'
+  - composer self-update
 
 # Install composer dependencies,
 # Create database, schema and fixtures
