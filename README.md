@@ -7,6 +7,14 @@ PHPSpec
 [Swagger](https://swagger.io/)  
 [Prooph](http://getprooph.org/)
 
+### Instalation
+
+```
+composer install
+php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixtures:load
+```
+
 ### Testing
 
 run DomainModel unit tests:
