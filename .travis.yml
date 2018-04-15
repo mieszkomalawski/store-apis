@@ -30,8 +30,10 @@ before-install:
 # Install composer dependencies,
 install:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - cd docker2 && cp .env.travis .env
-  - cd docker2 && make install
+  - cd docker2
+  - cp .env.travis .env
+  - make install
+  - cd ..
 
 
 before_script:
