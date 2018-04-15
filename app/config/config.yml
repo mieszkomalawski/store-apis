@@ -54,7 +54,7 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #path: '%database_path%'
-        path: '%database_path%'
+        #path: '%database_path%'
         types:
           uuid: Ramsey\Uuid\Doctrine\UuidType
 
