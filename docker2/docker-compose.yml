@@ -2,7 +2,7 @@ version: '2'
 
 services:
     db:
-        build: mysql
+        image: miechuliv/symfony-mysql
         volumes:
             - "/.data/db:/var/lib/mysql"
         environment:
@@ -21,7 +21,7 @@ services:
         mem_limit: 2g
         memswap_limit: 4g
     nginx:
-        build: nginx
+        image: miechuliv/symfony-nginx
         ports:
             - 82:80
         volumes_from:
