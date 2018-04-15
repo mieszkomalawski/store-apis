@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+    db:
+        build: mysql
+        volumes:
+            - "/.data/db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    php:
+        build:
+            context: php7-fpm
+            args:
+                TIMEZONE: ${TIMEZONE}
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/app/logs
+        mem_limit: 2g
+        memswap_limit: 4g
+    nginx:
+        build: nginx
+        ports:
+            - 82:80
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+        mem_limit: 200m
+    elk:
+        image: willdurand/elk
+        ports:
+            - 84:80
+        volumes:
+            - ./elk/logstash:/etc/logstash
+            - ./elk/logstash/patterns:/opt/logstash/patterns
+        volumes_from:
+            - php
+            - nginx
+        mem_limit: 500m
