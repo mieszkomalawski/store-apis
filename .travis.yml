@@ -24,7 +24,7 @@ matrix:
 env:
   - SYMFONY_VERSION="3.0.*" DB=mysql
 
-before-install:
+before_install:
   - npm install -g dredd
 
 # Install composer dependencies,
