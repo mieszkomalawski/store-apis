@@ -6,7 +6,7 @@ sudo: required
 
 # Start mysql service
 services:
-  - mysql
+  - docker
 
 # Cache composer packages so "composer install" is faster
 cache:
@@ -28,19 +28,12 @@ before-install:
   - composer self-update
 
 # Install composer dependencies,
-# Create database, schema and fixtures
 install:
-  - bash .travis.install-mysql-5.7.sh
-  - mysql -u root -e 'CREATE DATABASE symfony;'
-  - composer install
   - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - php bin/console doctrine:migrations:migrate --no-interaction --env=dev
-  - php bin/console doctrine:fixtures:load -n --no-interaction --env=dev
-  - php bin/console doctrine:fixtures:load -n --no-interaction --env=dev
+  - cd docker && make install
 
 
 before_script:
-  - php bin/console server:start 127.0.0.1:8003
   - dredd --language=vendor/bin/dredd-hooks-php --hookfiles=./hooks*.php
 
 # Run script
