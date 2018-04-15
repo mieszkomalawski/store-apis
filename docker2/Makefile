@@ -2,8 +2,8 @@ install:
 	docker-compose -f ./docker-compose.yml up -d
 	sleep 10
 	docker-compose -f ./docker-compose.yml exec php composer install
-	docker-compose -f ./docker-compose.yml exec php php bin/console doctrine:migrations:migrate -n --no-interaction --env=dev
-	docker-compose -f ./docker-compose.yml exec php php bin/console doctrine:fixtures:load -n --no-interaction --env=dev
+	-docker-compose -f ./docker-compose.yml exec php php bin/console doctrine:migrations:migrate -n --no-interaction --env=dev
+	-docker-compose -f ./docker-compose.yml exec php php bin/console doctrine:fixtures:load -n --no-interaction --env=dev
 
 start:
 	docker-compose -f ./docker-compose.yml up -d

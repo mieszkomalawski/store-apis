@@ -32,7 +32,7 @@ install:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - cd docker2
   - cp .env.travis .env
-  - make install
+  - make -k install
   - cd ..
 
 
