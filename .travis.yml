@@ -25,7 +25,6 @@ env:
   - SYMFONY_VERSION="3.0.*" DB=mysql
 
 before-install:
-  - composer self-update
   - npm install -g dredd
 
 # Install composer dependencies,
