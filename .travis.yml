@@ -30,7 +30,7 @@ before-install:
 # Install composer dependencies,
 install:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - cd docker && make install
+  - cd docker2 && make install
 
 
 before_script:
