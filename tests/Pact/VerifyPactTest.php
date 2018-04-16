@@ -22,8 +22,10 @@ class VerifyPactTest extends KernelTestCase
         $config
             ->setProviderName('SomeProvider') // Providers name to fetch.
             ->setProviderVersion('1.0.0') // Providers version.
-            ->setProviderBaseUrl(new Uri('http://192.168.99.100:82')) // URL of the Provider.
-            ->setBrokerUri(new Uri('http://192.168.99.100:81')) // URL of the Pact Broker to publish results.
+           // ->setProviderBaseUrl(new Uri('http://192.168.99.100:82')) // URL of the Provider.
+           // ->setBrokerUri(new Uri('http://192.168.99.100:81')) // URL of the Pact Broker to publish results.
+                ->setProviderBaseUrl(new Uri('http://127.0.0.1:82'))
+                ->setBrokerUri(new Uri('http://ec2-52-14-29-29.us-east-2.compute.amazonaws.com/'))
                 ->setVerbose(true)
             ->setPublishResults(true); // Flag the verifier service to publish the results to the Pact Broker.
 
