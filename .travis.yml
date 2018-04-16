@@ -42,6 +42,7 @@ before_script:
 # Run script
 script:
   - vendor/bin/phpspec run
+  - vendor/bin/phpunit tests
 
 # After a build, send email notification with the build results
 notifications:

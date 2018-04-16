@@ -59,3 +59,12 @@ I, [2018-04-03T09:36:19.521271 #26118]  INFO -- : Sending GET request to path: "
 D, [2018-04-03T09:36:19.521316 #26118] DEBUG -- : body :
 I, [2018-04-03T09:36:21.827585 #26118]  INFO -- : Received response with status: 200, headers: {"Server"=>"nginx", "Content-Type"=>"application/json", "Connection"=>"keep-alive", "X-Powered-By"=>"PHP/7.1.15", "Cache-Control"=>"no-cache, private", "Date"=>"Tue, 03 Apr 2018 07:22:25 GMT", "Content-Length"=>"302"}, see debug logs for body
 D, [2018-04-03T09:36:21.827646 #26118] DEBUG -- : body: {"data":[{"id":"0d6f44d0-ad57-475d-876a-d20180fc22bd","name":"Don\u2019t Starve","price":2.99},{"id":"162e2dc2-6761-4a4e-9203-05f367d7ccd9","name":"Fallout","price":1.99},{"id":"4d690f62-8d63-4b53-be57-ab6e5381772b","name":"Bloodborne","price":5.99}],"next":"\/api\/catalog\/products?page=2","prev":""}
+I, [2018-04-16T09:05:22.801736 #36901]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which has status code 200'
+I, [2018-04-16T09:05:22.802386 #36901]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-16T09:05:22.802432 #36901] DEBUG -- : body :
+I, [2018-04-16T09:05:22.829596 #36901]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which has a matching body'
+I, [2018-04-16T09:05:22.830005 #36901]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-16T09:05:22.830054 #36901] DEBUG -- : body :
+I, [2018-04-16T09:05:22.832019 #36901]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which includes headers "Content-Type" which equals "application/json"'
+I, [2018-04-16T09:05:22.832217 #36901]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-16T09:05:22.832260 #36901] DEBUG -- : body :
