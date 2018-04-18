@@ -21,9 +21,9 @@ class VerifyPactTest extends TestCase
     public function testVerifyAllPact()
     {
         $config = Yaml::parse(file_get_contents(__DIR__ . '/../../app/config/parameters.yml'));
-        $brokerUri = $config['paremeters']['broker_uri'];
-        $providerUri = $config['paremeters']['provider_uri'];
-        $config = new VerifierConfig();
+        $brokerUri = $config['parameters']['broker_uri'];
+        $providerUri = $config['parameters']['provider_uri'];
+        $config = new MyConfig();
         $config
             ->setProviderName('SomeProvider') // Providers name to fetch.
             ->setProviderVersion('1.0.0') // Providers version.

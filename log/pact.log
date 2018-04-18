@@ -68,3 +68,21 @@ D, [2018-04-16T09:05:22.830054 #36901] DEBUG -- : body :
 I, [2018-04-16T09:05:22.832019 #36901]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which includes headers "Content-Type" which equals "application/json"'
 I, [2018-04-16T09:05:22.832217 #36901]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
 D, [2018-04-16T09:05:22.832260 #36901] DEBUG -- : body :
+I, [2018-04-18T08:46:05.884099 #62637]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which has status code 200'
+I, [2018-04-18T08:46:05.884580 #62637]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-18T08:46:05.884637 #62637] DEBUG -- : body :
+I, [2018-04-18T08:46:06.089744 #62637]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which has a matching body'
+I, [2018-04-18T08:46:06.089953 #62637]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-18T08:46:06.090011 #62637] DEBUG -- : body :
+I, [2018-04-18T08:46:06.278838 #62637]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which includes headers "Content-Type" which equals "application/json"'
+I, [2018-04-18T08:46:06.279049 #62637]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-18T08:46:06.279109 #62637] DEBUG -- : body :
+I, [2018-04-18T09:10:33.674607 #63463]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which has status code 200'
+I, [2018-04-18T09:10:33.675055 #63463]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-18T09:10:33.675102 #63463] DEBUG -- : body :
+I, [2018-04-18T09:10:34.694818 #63463]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which has a matching body'
+I, [2018-04-18T09:10:34.694976 #63463]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-18T09:10:34.695017 #63463] DEBUG -- : body :
+I, [2018-04-18T09:10:35.698273 #63463]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which includes headers "Content-Type" which equals "application/json"'
+I, [2018-04-18T09:10:35.698447 #63463]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-18T09:10:35.698493 #63463] DEBUG -- : body :
