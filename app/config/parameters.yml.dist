@@ -13,3 +13,5 @@ parameters:
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
     database_path: '%kernel.project_dir%/var/data/data.sqlite'
+    broker_uri: 'http://ec2-52-14-29-29.us-east-2.compute.amazonaws.com/'
+    provider_uri: 'http://127.0.0.1:82'
