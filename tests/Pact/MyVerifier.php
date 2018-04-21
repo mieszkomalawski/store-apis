@@ -9,10 +9,21 @@
 namespace Tests\Pact;
 
 
+use PhpPact\Standalone\ProviderVerifier\Model\VerifierConfigInterface;
 use PhpPact\Standalone\ProviderVerifier\Verifier;
 
 class MyVerifier extends Verifier
 {
+
+
+    /**
+     * MyVerifier constructor.
+     */
+    public function __construct(VerifierConfigInterface $config)
+    {
+        parent::__construct($config);
+    }
+
     public function getArguments(): array
     {
         $parameters =  parent::getArguments();
