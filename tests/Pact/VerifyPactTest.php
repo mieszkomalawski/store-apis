@@ -35,6 +35,7 @@ class VerifyPactTest extends TestCase
             ->setPublishResults(true); // Flag the verifier service to publish the results to the Pact Broker.
 
         // Verify that all consumers of 'SomeProvider' are valid.
+        umask(0);
         $verifier = new MyVerifier($config);
         $verifier->verifyAll();
 
