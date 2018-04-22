@@ -40,7 +40,7 @@ install:
 before_script:
   #- dredd --language=vendor/bin/dredd-hooks-php --hookfiles=./hooks*.php
   - sudo chown -R travis:travis /home/travis
-  - mkdir "/home/travis/build/mieszkomalawski/store-apis/vendor/mattersight/phppact/src/PhpPact/Standalone/Installer/../../../../pact"
+  #- mkdir "/home/travis/build/mieszkomalawski/store-apis/vendor/mattersight/phppact/src/PhpPact/Standalone/Installer/../../../../pact"
 
 # Run script
 script:
