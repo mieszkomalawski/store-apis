@@ -86,3 +86,8 @@ D, [2018-04-18T09:10:34.695017 #63463] DEBUG -- : body :
 I, [2018-04-18T09:10:35.698273 #63463]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which includes headers "Content-Type" which equals "application/json"'
 I, [2018-04-18T09:10:35.698447 #63463]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
 D, [2018-04-18T09:10:35.698493 #63463] DEBUG -- : body :
+I, [2018-04-22T19:42:02.240487 #27999]  INFO -- : Running example 'Verifying a pact between SomeConsumer and SomeProvider Given A get request to /api/catalog/products Get products with GET /api/catalog/products returns a response which has status code 200'
+I, [2018-04-22T19:42:02.241374 #27999]  INFO -- : Sending GET request to path: "/api/catalog/products" with headers: {"CONTENT_TYPE"=>"application/json"}, see debug logs for body
+D, [2018-04-22T19:42:02.241427 #27999] DEBUG -- : body :
+I, [2018-04-22T19:42:03.161711 #27999]  INFO -- : Received response with status: 500, headers: {"Server"=>"nginx", "Content-Type"=>"application/json", "Connection"=>"keep-alive", "X-Powered-By"=>"PHP/7.1.15", "Cache-Control"=>"no-cache, private", "Date"=>"Sun, 22 Apr 2018 17:42:03 GMT", "Content-Length"=>"51"}, see debug logs for body
+D, [2018-04-22T19:42:03.161824 #27999] DEBUG -- : body: {"message":"unknown error, please contact support"}
