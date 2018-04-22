@@ -33,13 +33,9 @@ class LoadProductData implements FixtureInterface, ContainerAwareInterface, Orde
         //hard coded for test purposes
         $fallout = new Product(Uuid::fromString('162e2dc2-6761-4a4e-9203-05f367d7ccd9'), 'Fallout', MoneyFactory::USD(1.99));
         $manager->persist($fallout);
-        $dontStarve = new Product(Uuid::uuid4(), 'Don’t Starve', MoneyFactory::USD(2.99));
+        $dontStarve = new Product(Uuid::fromString('0d6f44d0-ad57-475d-876a-d20180fc22bd'), 'Don’t Starve', MoneyFactory::USD(2.99));
         $manager->persist($dontStarve);
-        $baldur = new Product(Uuid::uuid4(), 'Baldur’s Gate', MoneyFactory::USD(3.99));
-        $manager->persist($baldur);
-        $icewind = new Product(Uuid::uuid4(), 'Icewind Dale', MoneyFactory::USD(4.99));
-        $manager->persist($icewind);
-        $blood = new Product(Uuid::uuid4(), 'Bloodborne', MoneyFactory::USD(5.99));
+        $blood = new Product(Uuid::fromString('4d690f62-8d63-4b53-be57-ab6e5381772b'), 'Bloodborne', MoneyFactory::USD(5.99));
         $manager->persist($blood);
         $manager->flush();
     }
