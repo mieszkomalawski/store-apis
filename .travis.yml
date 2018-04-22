@@ -22,8 +22,7 @@ matrix:
 
 # Define an environment variable
 env:
-  - SYMFONY_VERSION="3.0.*" DB=mysql
-  - SYMFONY_DEPRECATIONS_HELPER=weak
+  - SYMFONY_VERSION="3.0.*" DB=mysql SYMFONY_DEPRECATIONS_HELPER=weak
 
 before_install:
   - npm install -g dredd
