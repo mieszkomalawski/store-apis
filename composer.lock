@@ -4702,63 +4702,6 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
-            "name": "mattersight/phppact",
-            "version": "3.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pact-foundation/pact-php.git",
-                "reference": "a63bf109fc910e03db3c91cf09795cc7e3f5d1b0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pact-foundation/pact-php/zipball/a63bf109fc910e03db3c91cf09795cc7e3f5d1b0",
-                "reference": "a63bf109fc910e03db3c91cf09795cc7e3f5d1b0",
-                "shasum": ""
-            },
-            "require": {
-                "ext-openssl": "*",
-                "guzzlehttp/guzzle": "^6.3",
-                "php": "^7.0",
-                "symfony/console": "^3.3",
-                "symfony/filesystem": "^3.0",
-                "symfony/process": "^3.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.10",
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^6.0",
-                "slim/slim": "^3.9"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "PhpPact\\": "src/PhpPact"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mattermack",
-                    "email": "charles.mack@mattersight.com"
-                },
-                {
-                    "name": "Nicholas Brink",
-                    "email": "nick.brink@mattersight.com"
-                }
-            ],
-            "description": "Enables consumer driven contract testing, following the PACT foundation principles.",
-            "homepage": "https://github.com/Mattersight/php-pact",
-            "keywords": [
-                "mattersight",
-                "pact",
-                "pact-php"
-            ],
-            "time": "2018-03-05T18:38:37+00:00"
-        },
-        {
             "name": "phar-io/manifest",
             "version": "1.0.1",
             "source": {
