@@ -47,13 +47,52 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductRepository.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProductRepository.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/ProductRepository.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="10">
               <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               <folding>
                 <marker date="1524389125000" expanded="true" signature="575:635" ph="SELECT p FRO... Store" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LICENSE" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docker2/LICENSE">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docker2/Makefile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="96" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Version20180422104715.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/DoctrineMigrations/Version20180422104715.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <marker date="1524394035000" expanded="true" signature="567:619" ph="DROP TABLE _... " />
+                <marker date="1524394035000" expanded="true" signature="646:670" ph="DROP TABLE e... " />
+                <marker date="1524394035000" expanded="true" signature="697:719" ph="DROP TABLE p... " />
+                <marker date="1524394035000" expanded="true" signature="746:792" ph="ALTER TABLE products... " />
+                <marker date="1524394035000" expanded="true" signature="1101:1485" ph="CREATE TABLE... " />
+                <marker date="1524394035000" expanded="true" signature="1512:1909" ph="CREATE TABLE... event_streams" />
+                <marker date="1524394035000" expanded="true" signature="1936:2306" ph="CREATE TABLE... projections" />
+                <marker date="1524394035000" expanded="true" signature="2333:2367" ph="ALTER TABLE products... " />
               </folding>
             </state>
           </provider>
@@ -84,36 +123,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hooks.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hooks.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="docker-compose.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docker2/docker-compose.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="14" lean-forward="true" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".env.travis" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docker2/.env.travis">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -338,6 +347,11 @@
             <path>
               <item name="store-apis" type="b2602c69:ProjectViewProjectNode" />
               <item name="store-apis" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="docker2" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="store-apis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="store-apis" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -423,12 +437,12 @@
       <workItem from="1522053230932" duration="17000" />
       <workItem from="1522580769117" duration="16624000" />
       <workItem from="1523787953071" duration="11054000" />
-      <workItem from="1524032610798" duration="10575000" />
+      <workItem from="1524032610798" duration="11058000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45157000" />
+    <option name="totallyTimeSpent" value="45640000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -465,9 +479,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/docker/.env" />
-    <entry file="file://$PROJECT_DIR$/docker/README.md" />
-    <entry file="file://$PROJECT_DIR$/docker/Makefile" />
     <entry file="file://$PROJECT_DIR$/docker/.travis.yml" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
@@ -633,14 +644,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="4759" column="10" lean-forward="false" selection-start-line="4759" selection-start-column="10" selection-end-line="4759" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docker2/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="68" />
           <folding />
         </state>
       </provider>
@@ -850,6 +853,47 @@
           <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           <folding>
             <marker date="1524389125000" expanded="true" signature="575:635" ph="SELECT p FRO... Store" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker2/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/DoctrineMigrations/Version20180422104651.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker2/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/DoctrineMigrations/Version20180422104715.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1524394035000" expanded="true" signature="567:619" ph="DROP TABLE _... " />
+            <marker date="1524394035000" expanded="true" signature="646:670" ph="DROP TABLE e... " />
+            <marker date="1524394035000" expanded="true" signature="697:719" ph="DROP TABLE p... " />
+            <marker date="1524394035000" expanded="true" signature="746:792" ph="ALTER TABLE products... " />
+            <marker date="1524394035000" expanded="true" signature="1101:1485" ph="CREATE TABLE... " />
+            <marker date="1524394035000" expanded="true" signature="1512:1909" ph="CREATE TABLE... event_streams" />
+            <marker date="1524394035000" expanded="true" signature="1936:2306" ph="CREATE TABLE... projections" />
+            <marker date="1524394035000" expanded="true" signature="2333:2367" ph="ALTER TABLE products... " />
           </folding>
         </state>
       </provider>
