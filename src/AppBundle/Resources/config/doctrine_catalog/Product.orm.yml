@@ -14,3 +14,5 @@ Store\Catalog\Product:
     name:
       type: string
       length: 255
+    priority:
+      type: integer

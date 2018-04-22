@@ -26,6 +26,9 @@ class Product
      */
     private $price;
 
+    /** @var int */
+    private $priority;
+
     /**
      * Product constructor.
      * @param UuidInterface $id
@@ -111,4 +114,14 @@ class Product
             throw InvalidNameException::create();
         }
     }
+
+    /**
+     * @param int $priority
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    }
+
+
 }
