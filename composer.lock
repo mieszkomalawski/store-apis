@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c460787faee544258ed97532f8ed231",
+    "content-hash": "6fe1995bc216ed911bf4ab8960b09e73",
     "packages": [
         {
             "name": "aura/cli",
@@ -4703,16 +4703,16 @@
         },
         {
             "name": "mattersight/phppact",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pact-foundation/pact-php.git",
-                "reference": "a63bf109fc910e03db3c91cf09795cc7e3f5d1b0"
+                "reference": "60bb91b9303cc26672847fce9304b280e9b324f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pact-foundation/pact-php/zipball/a63bf109fc910e03db3c91cf09795cc7e3f5d1b0",
-                "reference": "a63bf109fc910e03db3c91cf09795cc7e3f5d1b0",
+                "url": "https://api.github.com/repos/pact-foundation/pact-php/zipball/60bb91b9303cc26672847fce9304b280e9b324f3",
+                "reference": "60bb91b9303cc26672847fce9304b280e9b324f3",
                 "shasum": ""
             },
             "require": {
@@ -4756,7 +4756,7 @@
                 "pact",
                 "pact-php"
             ],
-            "time": "2018-03-05T18:38:37+00:00"
+            "time": "2018-04-18T19:05:27+00:00"
         },
         {
             "name": "phar-io/manifest",
