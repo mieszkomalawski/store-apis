@@ -12,6 +12,7 @@ services:
 cache:
   directories:
     - $HOME/.composer/cache/files
+    - ./vendor
 
 # Matrix to test in every php version
 matrix:
