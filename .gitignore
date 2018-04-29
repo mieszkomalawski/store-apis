@@ -16,4 +16,4 @@
 /vendor/
 /web/bundles/
 .php_cs_cache
-log
+log/pact.log
