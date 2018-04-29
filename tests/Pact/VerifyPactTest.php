@@ -36,7 +36,8 @@ class VerifyPactTest extends TestCase
 
         // Verify that all consumers of 'SomeProvider' are valid.
         $verifier = new MyVerifier($config);
-        $verifier->verifyAll();
+        //uzywamy tagow do "branchowania" - consumer moze miec inne oczekiwania dla innych tagow, master, feature etc.
+        $verifier->verifyAllForTag('old');
 
         // This will not be reached if the PACT verifier throws an error, otherwise it was successful.
         $this->assertTrue(true, 'Pact Verification has failed.');
