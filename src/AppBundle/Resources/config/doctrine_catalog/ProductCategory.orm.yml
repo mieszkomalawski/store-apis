@@ -1,0 +1,11 @@
+Store\Catalog\ProductCategory:
+  type: entity
+  table: categories
+  id:
+    id:
+      type: uuid
+      generator: {strategy: NONE}
+  fields:
+    name:
+      type: string
+      length: 255

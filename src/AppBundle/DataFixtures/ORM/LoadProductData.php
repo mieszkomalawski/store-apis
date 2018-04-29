@@ -45,6 +45,6 @@ class LoadProductData implements FixtureInterface, ContainerAwareInterface, Orde
 
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }

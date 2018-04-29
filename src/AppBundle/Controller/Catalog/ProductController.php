@@ -16,6 +16,7 @@ use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Store\Catalog\Product;
+use Store\Catalog\ProductCategory;
 use Store\SharedKernel\MoneyFactory;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,6 +107,20 @@ class ProductController extends FOSRestController
 
         return $this->handleView($view);
     }
+
+    public function getCategoriesAction(Request $request)
+    {
+        $productCategoryRepository = $this->getDoctrine()->getRepository(ProductCategory::class);
+        $categories = $productCategoryRepository->findAll();
+        $view = $this->view([
+            'data' => $categories,
+            'next' => '',
+            'prev' => '',
+        ], 200);
+
+        return $this->handleView($view);
+    }
+
 
     /**
      * @Get("/products/{productId}", name="get_product", options={ "method_prefix" = false }, requirements={"productId" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
